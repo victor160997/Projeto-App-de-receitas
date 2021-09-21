@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
 
-class DrinkRecipes extends Component {
+export default class ExploreFoodArea extends Component {
   render() {
     return (
       <div>
-        <Header titlePage="Bebidas" />
-        Drink Recipes
+        <Header titlePage="Explorar Origem" />
       </div>
     );
   }
 }
-
-export default DrinkRecipes;
