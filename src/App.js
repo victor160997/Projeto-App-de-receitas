@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import ExploreDrinkIngredientes from './pages/ExploreDrinkIngredientes';
 import ExploreFoodArea from './pages/ExploreFoodArea';
 import ExploreFoodIngredientes from './pages/ExploreFoodIngredientes';
+import Login from './pages/Login';
 
 class App extends Component {
   render() {
