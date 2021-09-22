@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import HeaderExplore from '../components/HeaderExplore';
 
-class Favorites extends Component {
+export default class ExploreDrinkIngredientes extends Component {
   render() {
     return (
       <div>
-        <HeaderExplore titlePage="Receitas Favoritas" />
-        Favorites
+        <HeaderExplore titlePage="Explorar Ingredientes" explore />
       </div>
     );
   }
 }
-
-export default Favorites;
