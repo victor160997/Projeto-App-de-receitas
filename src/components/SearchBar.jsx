@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { fetchFoodApi as fetchFoodApiAction } from '../redux/actions';
+// import { connect } from 'react-redux';
+// import { fetchFoodApi as fetchFoodApiAction } from '../redux/actions';
 
-class SearchBar extends Component {
+export default class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,14 +21,13 @@ class SearchBar extends Component {
   } */
 
   componentDidUpdate(props) {
-    const { fetchFoodApi, foodData } = props;
+    const { fetchApi } = props;
     const { searchInput, radioSearch, search } = this.state;
     if (radioSearch === 'search.php?f=' && searchInput.length > 1) {
       global.alert('Sua busca deve conter somente 1 (um) caracter');
     }
     if (search === true) {
-      fetchFoodApi(radioSearch, searchInput);
-      console.log(foodData);
+      fetchApi(radioSearch, searchInput);
       this.setSearch();
     }
   }
@@ -101,16 +100,15 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  fetchFoodApi: PropTypes.func.isRequired,
-  foodData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  fetchApi: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ foodData }) => ({
-  foodData: foodData.data,
-});
+// const mapStateToProps = ({ foodData }) => ({
+//   foodData: foodData.data,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchFoodApi: (payload1, payload2) => dispatch(fetchFoodApiAction(payload1, payload2)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   fetchFoodApi: (payload1, payload2) => dispatch(fetchFoodApiAction(payload1, payload2)),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+// export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
