@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import Footer from '../components/Footer';
 
-class DrinkRecipes extends Component {
+export default class DrinkRecipes extends Component {
   render() {
     return (
       <div>
         Drink Recipes
+        <Footer />
       </div>
     );
   }
 }
-
-export default DrinkRecipes;
