@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import InputCard from '../Components/InputCard';
+import InputCard from '../components/InputCard';
 import { loginValidator } from '../redux/helper';
-import ButtonCard from '../Components/ButtonCard';
+import ButtonCard from '../components/ButtonCard';
 
 function Login() {
   const [email, setEmail] = useState('');
