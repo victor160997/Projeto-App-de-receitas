@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 import HeaderExplore from '../components/HeaderExplore';
 
 export default class ExploreFood extends Component {
@@ -14,6 +15,7 @@ export default class ExploreFood extends Component {
         <Link to="/explorar/comidas/area">
           <h3>Por Local de Origem</h3>
         </Link>
+        <Footer />
       </div>
     );
   }

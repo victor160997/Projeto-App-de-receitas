@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Footer from '../components/Footer';
 import HeaderExplore from '../components/HeaderExplore';
 
 export default class ExploreFoodIngredientes extends Component {
@@ -6,6 +7,7 @@ export default class ExploreFoodIngredientes extends Component {
     return (
       <div>
         <HeaderExplore titlePage="Explorar Ingredientes" />
+        <Footer />
       </div>
     );
   }
