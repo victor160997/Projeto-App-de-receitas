@@ -28,7 +28,7 @@ function Login() {
         <InputCard
           id="login"
           name="login"
-          type="text"
+          type="password"
           testId="password-input"
           onChange={ ({ target: { value } }) => setPassword(value) }
         />
