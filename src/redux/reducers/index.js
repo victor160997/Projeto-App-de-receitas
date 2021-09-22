@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import reducer from './foodReducer';
+import foodReducer from './foodReducer';
 
 const rootReducer = combineReducers({
-  reducer,
+  foodData: foodReducer,
 });
 
 export default rootReducer;
