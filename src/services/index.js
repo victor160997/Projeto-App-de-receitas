@@ -1,14 +1,27 @@
-// const FOOD_CATEGORY = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
-// const FOOD_ARIA = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
-// const FOOD_IGREDIENTS = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+/*
+https://www.themealdb.com/api/json/v1/1/filter.php?i={Onion}
+https://www.themealdb.com/api/json/v1/1/search.php?s={coxinha}
+https://www.themealdb.com/api/json/v1/1/search.php?f={primeira-letra}
 
-// const fetchApi = (url) => (
-//   fetch(url)
-//     .then((response) => (
-//       response
-//         .json()
-//         .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
-//     ))
-// );
+Ao selecionar Ingrediente e buscar por chicken, deve-se utilizar o endpoint
+https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken.
 
-// export const foodAria = fetchApi(FOOD_ARIA);
+Caso as receitas sejam de comida, deve-se carregar as 12 primeiras receitas obtidas através do endpoint
+https://www.themealdb.com/api/json/v1/1/search.php?s=
+
+Caso as receitas sejam de comida, deve-se exibir as 5 primeiras categorias de comida obtidas através do endpoint
+https://www.themealdb.com/api/json/v1/1/list.php?c=list
+*/
+
+const foodURL = 'https://www.themealdb.com/api/json/v1/1/';
+
+export default async function getFoodApi(type, food) {
+  if (!food) {
+    const response = await fetch(`${foodURL}${type}`);
+    const data = await response.json();
+    return data;
+  }
+  const response = await fetch(`${foodURL}${type}${food}`);
+  const data = await response.json();
+  return data;
+}
