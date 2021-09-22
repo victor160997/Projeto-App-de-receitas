@@ -3,15 +3,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Recipes from '../components/Recipes';
 import { fetchDrinkApi } from '../redux/actions';
 
 class DrinkRecipes extends Component {
   render() {
     const { fetchDrink } = this.props;
+    const Bebidas = 'Bebidas';
     return (
       <div>
-        <Header titlePage="Bebidas" fetchApi={ fetchDrink } />
+        <Header titlePage={ Bebidas } fetchApi={ fetchDrink } />
         Drink Recipes
+        <Recipes type={ Bebidas } />
         <Footer />
       </div>
     );

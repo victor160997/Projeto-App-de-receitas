@@ -3,7 +3,6 @@ import actions from '../actions';
 const INITIAL_STATE = {
   data: {},
   loading: false,
-
 };
 
 function drinkReducer(state = INITIAL_STATE, action) {
