@@ -26,7 +26,7 @@ export default class Header extends Component {
   }
 
   render() {
-    const { titlePage } = this.props;
+    const { titlePage, fetchApi } = this.props;
     const { showSearchBar } = this.state;
     return (
       <div>
@@ -52,7 +52,7 @@ export default class Header extends Component {
             />
           </button>
         </header>
-        { showSearchBar ? <SearchBar /> : '' }
+        { showSearchBar ? <SearchBar fetchApi={ fetchApi } /> : '' }
       </div>
     );
   }
@@ -60,4 +60,5 @@ export default class Header extends Component {
 
 Header.propTypes = {
   titlePage: PropTypes.string.isRequired,
+  fetchApi: PropTypes.func.isRequired,
 };
