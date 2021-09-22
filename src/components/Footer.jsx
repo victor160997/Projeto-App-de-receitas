@@ -8,7 +8,7 @@ import mealIcon from '../images/mealIcon.svg';
 export default class Footer extends Component {
   render() {
     return (
-      <footer data-testid="footer" id="footer-menu">
+      <footer data-testid="footer" className="footer-menu">
         <Link
           to="/bebidas"
           data-testid="drinks-bottom-btn"
