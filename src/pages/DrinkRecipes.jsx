@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import CategoriesButton from '../components/CategoriesButton';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Recipes from '../components/Recipes';
@@ -28,7 +29,7 @@ class DrinkRecipes extends Component {
     return (
       <div>
         <Header titlePage={ Bebidas } fetchApi={ fetchDrink } />
-        Drink Recipes
+        <CategoriesButton category="drinks" />
         <Recipes type={ Bebidas } redirectDetailsDrink={ this.redirectDetailsDrink } />
         <Footer />
       </div>
