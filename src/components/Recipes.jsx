@@ -11,6 +11,10 @@ class Recipes extends Component {
 
   renderFoodRecipes(data) {
     const limitImgs = 12;
+    const { redirectDetailsFood } = this.props;
+    if (data.length === 1) {
+      return redirectDetailsFood(data[0].idMeal);
+    }
     return (
       <section>
         {
@@ -36,6 +40,10 @@ class Recipes extends Component {
   }
 
   renderDrinkRecipes(data) {
+    const { redirectDetailsDrink } = this.props;
+    if (data.length === 1) {
+      return redirectDetailsDrink(data[0].idDrink);
+    }
     const limitImgs = 12;
     return (
       <section>
@@ -86,4 +94,6 @@ Recipes.propTypes = {
   type: PropTypes.string.isRequired,
   drinkData: PropTypes.arrayOf(PropTypes.object).isRequired,
   foodData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  redirectDetailsFood: PropTypes.func.isRequired,
+  redirectDetailsDrink: PropTypes.func.isRequired,
 };
