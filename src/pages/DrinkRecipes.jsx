@@ -7,6 +7,16 @@ import Recipes from '../components/Recipes';
 import { fetchDrinkApi } from '../redux/actions';
 
 class DrinkRecipes extends Component {
+  constructor(props) {
+    super(props);
+    this.redirectDetailsDrink = this.redirectDetailsDrink.bind(this);
+  }
+
+  redirectDetailsDrink(id) {
+    const { history } = this.props;
+    history.push(`bebidas/${id}`);
+  }
+
   render() {
     const { fetchDrink } = this.props;
     const Bebidas = 'Bebidas';
@@ -14,7 +24,7 @@ class DrinkRecipes extends Component {
       <div>
         <Header titlePage={ Bebidas } fetchApi={ fetchDrink } />
         Drink Recipes
-        <Recipes type={ Bebidas } />
+        <Recipes type={ Bebidas } redirectDetailsDrink={ this.redirectDetailsDrink } />
         <Footer />
       </div>
     );
@@ -23,6 +33,7 @@ class DrinkRecipes extends Component {
 
 DrinkRecipes.propTypes = {
   fetchDrink: PropTypes.func.isRequired,
+  history: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
