@@ -12,6 +12,11 @@ class DrinkRecipes extends Component {
     this.redirectDetailsDrink = this.redirectDetailsDrink.bind(this);
   }
 
+  componentDidMount() {
+    const { fetchDrink } = this.props;
+    return fetchDrink('search.php?s=', '');
+  }
+
   redirectDetailsDrink(id) {
     const { history } = this.props;
     history.push(`bebidas/${id}`);
