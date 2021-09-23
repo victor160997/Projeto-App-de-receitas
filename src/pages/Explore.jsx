@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 import HeaderExplore from '../components/HeaderExplore';
 
 class Explore extends Component {
@@ -13,6 +14,7 @@ class Explore extends Component {
         <Link to="/explorar/bebidas">
           <h3>Explorar Bebidas</h3>
         </Link>
+        <Footer />
       </div>
     );
   }

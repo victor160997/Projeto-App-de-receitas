@@ -1,15 +1,17 @@
 import React from 'react';
-import Header from '../components/Header';
+import Footer from '../components/Footer';
+import HeaderExplore from '../components/HeaderExplore';
 import ButtonCard from '../components/ButtonCard';
 
-function Profile() {
+export default function Profile() {
   const getUser = localStorage.getItem('user');
   const user = JSON.parse(getUser);
 
   if (getUser === null) {
     return (
       <>
-        <Header title="Perfil" />
+        <HeaderExplore titlePage="Perfil" />
+        Perfil
         <h3
           data-testid="profile-email"
         >
@@ -34,13 +36,15 @@ function Profile() {
           } }
           buttonText="Sair"
         />
+        <Footer />
       </>
     );
   }
 
   return (
     <>
-      <Header title="Perfil" />
+      <HeaderExplore titlePage="Perfil" />
+      Perfil
       <h3
         data-testid="profile-email"
       >
@@ -65,8 +69,7 @@ function Profile() {
         } }
         buttonText="Sair"
       />
+      <Footer />
     </>
   );
 }
-
-export default Profile;

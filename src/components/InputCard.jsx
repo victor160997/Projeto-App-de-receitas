@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function InputCard({ labelText, id, name, type, onChange, testId }) {
   return (
-    <label className="input-card" htmlFor={ id }>
+    <label htmlFor={ id }>
       { labelText }
       <input
         id={ id }
