@@ -5,53 +5,39 @@ import { connect } from 'react-redux';
 class Recipes extends Component {
   constructor() {
     super();
-    this.renderFoodRecipes = this.renderFoodRecipes.bind(this);
-    this.renderDrinkRecipes = this.renderDrinkRecipes.bind(this);
+    this.renderRecipes = this.renderRecipes.bind(this);
+    this.redirectDetails = this.redirectDetails.bind(this);
   }
 
-  renderFoodRecipes(data) {
-    const limitImgs = 12;
-    const { redirectDetailsFood } = this.props;
-    if (data.length === 1) {
-      return redirectDetailsFood(data[0].idMeal);
-    }
-    /* if (data) {
-      return global
-        .alert('Sinto muito, não encontramos nenhuma receita para esses filtros."');
-    } */
-    return (
-      <section>
-        {
-          data.map((curr, index) => {
-            if (index < limitImgs) {
-              return (
-                <div key={ index } data-testid={ `${index}-recipe-card` }>
-                  <img
-                    src={ curr.strMealThumb }
-                    data-testid={ `${index}-card-img` }
-                    width="200px"
-                    alt="Recipe example"
-                  />
-                  <span data-testid={ `${index}-card-name` }>{curr.strMeal}</span>
-                </div>
-              );
-            }
-            return undefined;
-          })
-        }
-      </section>
-    );
+  /* const { redirectDetailsFood } = this.props;
+  if (data.length === 1) {
+    return redirectDetailsFood(data[0].idMeal);
   }
 
-  renderDrinkRecipes(data) {
-    const { redirectDetailsDrink } = this.props;
+   const { redirectDetailsDrink } = this.props;
     if (data.length === 1) {
       return redirectDetailsDrink(data[0].idDrink);
     }
-    /* if (data) {
-      return global
-        .alert('Sinto muito, não encontramos nenhuma receita para esses filtros."');
-    } */
+  */
+
+  redirectDetails(type, data) {
+    if (type === 'Drink') {
+      const { redirectDetailsDrink } = this.props;
+      if (data.length === 1) {
+        return redirectDetailsDrink(data[0].idDrink);
+      }
+    }
+    if (type === 'Meal') {
+      const { redirectDetailsFood } = this.props;
+      if (data.length === 1) {
+        return redirectDetailsFood(data[0].idMeal);
+      }
+    }
+    return undefined;
+  }
+
+  renderRecipes(data, api) {
+    this.redirectDetails(api, data);
     const limitImgs = 12;
     return (
       <section>
@@ -61,16 +47,17 @@ class Recipes extends Component {
               return (
                 <div key={ index } data-testid={ `${index}-recipe-card` }>
                   <img
-                    src={ curr.strDrinkThumb }
+                    src={ curr[`str${api}Thumb`] }
                     data-testid={ `${index}-card-img` }
                     width="200px"
                     alt="Recipe example"
+                    loading="lazy"
                   />
-                  <span data-testid={ `${index}-card-name` }>{curr.strDrink}</span>
+                  <span data-testid={ `${index}-card-name` }>{curr[`str${api}`]}</span>
                 </div>
               );
             }
-            return undefined;
+            return null;
           })
         }
       </section>
@@ -87,9 +74,11 @@ class Recipes extends Component {
     return (
       <div>
         {type === 'Bebidas' && drinkData.length
-          ? this.renderDrinkRecipes(drinkData) : ''}
+          ? this.renderRecipes(drinkData, 'Drink')
+          : '' }
         {type === 'Comidas' && foodData.length
-          ? this.renderFoodRecipes(foodData) : ''}
+          ? this.renderRecipes(foodData, 'Meal')
+          : '' }
       </div>
     );
   }
@@ -106,6 +95,6 @@ Recipes.propTypes = {
   type: PropTypes.string.isRequired,
   drinkData: PropTypes.arrayOf(PropTypes.object).isRequired,
   foodData: PropTypes.arrayOf(PropTypes.object).isRequired,
-  redirectDetailsFood: PropTypes.func.isRequired,
   redirectDetailsDrink: PropTypes.func.isRequired,
+  redirectDetailsFood: PropTypes.func.isRequired,
 };
