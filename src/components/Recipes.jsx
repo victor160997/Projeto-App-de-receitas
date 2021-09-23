@@ -15,6 +15,10 @@ class Recipes extends Component {
     if (data.length === 1) {
       return redirectDetailsFood(data[0].idMeal);
     }
+    /* if (data) {
+      return global
+        .alert('Sinto muito, não encontramos nenhuma receita para esses filtros."');
+    } */
     return (
       <section>
         {
@@ -44,6 +48,10 @@ class Recipes extends Component {
     if (data.length === 1) {
       return redirectDetailsDrink(data[0].idDrink);
     }
+    /* if (data) {
+      return global
+        .alert('Sinto muito, não encontramos nenhuma receita para esses filtros."');
+    } */
     const limitImgs = 12;
     return (
       <section>
@@ -71,6 +79,10 @@ class Recipes extends Component {
 
   render() {
     const { type, drinkData, foodData } = this.props;
+    if (foodData === null || drinkData === null) {
+      return global
+        .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
 
     return (
       <div>
