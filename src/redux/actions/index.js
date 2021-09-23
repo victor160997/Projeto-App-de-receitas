@@ -31,7 +31,10 @@ export const failedRequest = (error) => ({
 export const fetchFoodApi = (payload1, payload2) => async (dispatch) => {
   dispatch(requestApiFood());
   try {
-    const { meals } = await getFoodApi(payload1, payload2);
+    const { meals, categories } = await getFoodApi(payload1, payload2);
+    if (categories) {
+      dispatch(requestFoodApi(categories));
+    }
     dispatch(requestFoodApi(meals));
   } catch (error) {
     dispatch(failedRequest(error.message));
