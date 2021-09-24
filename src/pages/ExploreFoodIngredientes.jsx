@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
 import HeaderExplore from '../components/HeaderExplore';
 import { fetchFoodApi } from '../redux/actions';
-import IngredientCard from '../components/IngredientCard';
+import Recipes from '../components/Recipes';
 
 class ExploreFoodIngredientes extends Component {
   componentDidMount() {
@@ -12,21 +13,22 @@ class ExploreFoodIngredientes extends Component {
   }
 
   render() {
-    const { foodData, data } = this.props;
+    const { foodData } = this.props;
     return (
       <div>
         <HeaderExplore titlePage="Explorar Ingredientes" />
-        <IngredientCard foodData={ foodData } />
+        <Recipes type="Ingrediente" foodData={ foodData } />
         <Footer />
       </div>
     );
   }
 }
-/*
+
 ExploreFoodIngredientes.propTypes = {
-  foodData: PropTypes.func.isRequired,
+  foodData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  fetchFood: PropTypes.func.isRequired,
 };
-*/
+
 const mapStateToProps = ({ foodData }) => ({
   foodData: foodData.categoriesData,
 });

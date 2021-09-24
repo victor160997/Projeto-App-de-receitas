@@ -36,7 +36,7 @@ class Recipes extends Component {
     return undefined;
   }
 
-  renderRecipes(data, api) {
+  renderRecipes(data, api, page) {
     this.redirectDetails(api, data);
     const limitImgs = 12;
     return (
@@ -45,7 +45,7 @@ class Recipes extends Component {
           data.map((curr, index) => {
             if (index < limitImgs) {
               return (
-                <div key={ index } data-testid={ `${index}-recipe-card` }>
+                <div key={ index } data-testid={ `${index}-${page}-card` }>
                   <img
                     src={ curr[`str${api}Thumb`] }
                     data-testid={ `${index}-card-img` }
@@ -66,6 +66,9 @@ class Recipes extends Component {
 
   render() {
     const { type, drinkData, foodData } = this.props;
+    const { data, categoriesData } = foodData;
+    const { data: drinks } = drinkData;
+
     if (foodData === null || drinkData === null) {
       return global
         .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -73,20 +76,23 @@ class Recipes extends Component {
 
     return (
       <div>
-        {type === 'Bebidas' && drinkData.length
-          ? this.renderRecipes(drinkData, 'Drink')
+        {type === 'Bebidas' && drinks.length
+          ? this.renderRecipes(drinks, 'Drink', 'recipe')
           : '' }
-        {type === 'Comidas' && foodData.length
-          ? this.renderRecipes(foodData, 'Meal')
+        {type === 'Comidas' && data.length
+          ? this.renderRecipes(data, 'Meal', 'recipe')
+          : '' }
+        {type === 'Ingrediente' && categoriesData.length
+          ? this.renderRecipes(categoriesData, 'Category', 'ingredient')
           : '' }
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  foodData: state.foodData.data,
-  drinkData: state.drinkData.data,
+const mapStateToProps = ({ foodData, drinkData }) => ({
+  foodData,
+  drinkData,
 });
 
 export default connect(mapStateToProps)(Recipes);
