@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { getDrinksApi, getFoodApi } from '../services';
 // import { fetchDrinkApi, fetchFoodApi } from '../redux/actions';
 
-export default class CategoriesButton extends Component {
+class CategoriesButton extends Component {
   constructor() {
     super();
     this.state = {
       response: '',
     };
+    this.filter = this.filter.bind(this);
     this.renderButton = this.renderButton.bind(this);
   }
 
@@ -27,15 +29,24 @@ export default class CategoriesButton extends Component {
     });
   }
 
+  filter({ target }) {
+    const { name } = target;
+    const { foodData } = this.props;
+    const filterArray = foodData.filter((value) => value.strCategory === name);
+    console.log(filterArray);
+  }
+
   renderButton(response) {
     const four = 4;
     return response.map((categ, index) => {
       if (index <= four) {
         return (
           <button
+            name={ `${Object.values(categ)[0]}` }
             type="button"
             data-testid={ `${Object.values(categ)[0]}-category-filter` }
             key={ Object.values(categ)[0] }
+            // onClick={ this.filter }
           >
             {Object.values(categ)[0]}
           </button>
@@ -50,12 +61,16 @@ export default class CategoriesButton extends Component {
     return (
       <div>
         { response !== '' ? this.renderButton(response) : <span> Carregando </span> }
-        Categories
       </div>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  foodData: state.foodData.data,
+});
+
+export default connect(mapStateToProps)(CategoriesButton);
 CategoriesButton.propTypes = {
   category: PropTypes.string.isRequired,
 };
