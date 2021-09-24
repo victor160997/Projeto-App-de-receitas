@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Deatails from './pages/Deatails';
+import Details from './pages/Deatails';
 import DrinkRecipes from './pages/DrinkRecipes';
 import Explore from './pages/Explore';
 import ExploreDrink from './pages/ExploreDrink';
@@ -41,8 +41,8 @@ class App extends Component {
           path="/explorar/bebidas/ingredientes"
           component={ ExploreDrinkIngredientes }
         />
-        <Route path="/comidas/:idMeal" component={ Deatails } />
-        <Route path="/bebidas/:idDrink" component={ Deatails } />
+        <Route path="/comidas/:idMeal" component={ Details } />
+        <Route path="/bebidas/:idDrink" component={ Details } />
         <Route path="/" component={ Login } />
       </Switch>
     );
