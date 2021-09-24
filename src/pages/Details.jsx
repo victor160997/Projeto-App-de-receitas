@@ -20,12 +20,13 @@ class Details extends Component {
   }
 
   render() {
-    const { match: { path }, foodData } = this.props;
-    console.log(foodData);
+    const { match: { path }, foodData, drinkData } = this.props;
+    const recipe = path.includes('/comidas') ? { ...foodData } : { ...drinkData };
+    console.log(recipe);
     return (
       <div>
         x
-        {/* <img
+        <img
           data-testid="recipe-photo"
           src={ recipe.strMealThumb ? recipe.strMealThumb : recipe.strDrinkThumb }
           alt={ recipe.strMeal ? recipe.strMeal : recipe.strDrink }
@@ -41,7 +42,7 @@ class Details extends Component {
           <ul>
             <li>a</li>
           </ul>
-        </div> */}
+        </div>
       </div>
     );
   }
