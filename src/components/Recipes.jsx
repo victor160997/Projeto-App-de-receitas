@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Recipes extends Component {
   constructor() {
@@ -28,23 +29,27 @@ class Recipes extends Component {
 
   renderRecipes(data, api) {
     this.redirectDetails(api, data);
+    const { type } = this.props;
     const limitImgs = 12;
     return (
       <section>
         {
           data.map((curr, index) => {
+            /* to={`/%{type.toLowerCase()}/${api}`} */
             if (index < limitImgs) {
               return (
-                <div key={ index } data-testid={ `${index}-recipe-card` }>
-                  <img
-                    src={ curr[`str${api}Thumb`] }
-                    data-testid={ `${index}-card-img` }
-                    width="200px"
-                    alt="Recipe example"
-                    loading="lazy"
-                  />
-                  <span data-testid={ `${index}-card-name` }>{curr[`str${api}`]}</span>
-                </div>
+                <Link to={ `/${type.toLowerCase()}/${curr[`id${api}`]}` }>
+                  <div key={ index } data-testid={ `${index}-recipe-card` }>
+                    <img
+                      src={ curr[`str${api}Thumb`] }
+                      data-testid={ `${index}-card-img` }
+                      width="200px"
+                      alt="Recipe example"
+                      loading="lazy"
+                    />
+                    <span data-testid={ `${index}-card-name` }>{curr[`str${api}`]}</span>
+                  </div>
+                </Link>
               );
             }
             return null;
