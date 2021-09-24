@@ -19,7 +19,7 @@ class Recipes extends Component {
     }
     if (type === 'Meal') {
       const { redirectDetailsFood } = this.props;
-      if (data.length === 1) {
+      if (data.length === 1 && data[0].idMeal !== '52968') {
         return redirectDetailsFood(data[0].idMeal);
       }
     }

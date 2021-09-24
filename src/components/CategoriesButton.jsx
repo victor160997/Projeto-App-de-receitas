@@ -2,30 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getDrinksApi, getFoodApi } from '../services';
-import { filterFood } from '../redux/actions';
-// import { fetchDrinkApi, fetchFoodApi } from '../redux/actions';
+import { filterDrink, filterFood } from '../redux/actions';
 
 class CategoriesButton extends Component {
   constructor() {
     super();
     this.state = {
       response: '',
-      arrayFoodData: [],
+      type: '',
+      filterSelect: '',
     };
     this.renderButton = this.renderButton.bind(this);
-    this.updateState = this.updateState.bind(this);
   }
 
   async componentDidMount() {
     const { category } = this.props;
     this.setResponse(category);
-  }
-
-  componentDidUpdate(props, state) {
-    const { foodData } = this.props;
-    if (state.arrayFoodData.length === 0 && foodData.length > 0) {
-      this.updateState(foodData);
-    }
   }
 
   async setResponse(category) {
@@ -35,18 +27,35 @@ class CategoriesButton extends Component {
 
     return this.setState({
       response: requisition[category],
+      type: category,
     });
   }
 
-  filterCategory({ target }) {
+  async filterCategory({ target }) {
     const { name } = target;
-    const { filterFoodProps } = this.props;
-    const { arrayFoodData } = this.state;
-    filterFoodProps(arrayFoodData.filter((food) => food.strCategory === name));
-  }
-
-  updateState(data) {
-    return this.setState({ arrayFoodData: data });
+    const { filterSelect } = this.state;
+    const { type } = this.state;
+    if (type === 'meals') {
+      const { filterFoodProps } = this.props;
+      if (filterSelect === name) {
+        this.setState({ filterSelect: '' });
+        const resp = await getFoodApi('search.php?s=', '');
+        return filterFoodProps(resp.meals);
+      }
+      const resp = await getFoodApi(`filter.php?c=${name}`, '');
+      this.setState({ filterSelect: name });
+      filterFoodProps(resp.meals);
+    } else {
+      const { filterDrinkProps } = this.props;
+      if (filterSelect === name) {
+        this.setState({ filterSelect: '' });
+        const resp = await getDrinksApi('search.php?s=', '');
+        return filterDrinkProps(resp.drinks);
+      }
+      const resp = await getDrinksApi(`filter.php?c=${name}`, '');
+      this.setState({ filterSelect: name });
+      filterDrinkProps(resp.drinks);
+    }
   }
 
   renderButton(response) {
@@ -87,6 +96,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   filterFoodProps: (payload1, payload2) => dispatch(filterFood(payload1, payload2)),
+  filterDrinkProps: (payload1, payload2) => dispatch(filterDrink(payload1, payload2)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoriesButton);
@@ -94,5 +104,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(CategoriesButton);
 CategoriesButton.propTypes = {
   category: PropTypes.string.isRequired,
   filterFoodProps: PropTypes.func.isRequired,
-  foodData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filterDrinkProps: PropTypes.func.isRequired,
+  /* foodData: PropTypes.arrayOf(PropTypes.object).isRequired, */
 };
