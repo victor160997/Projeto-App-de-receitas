@@ -9,7 +9,17 @@ const actions = {
   SET_DRINK_DETAIL_DATA: 'SET_DRINK_DETAIL_DATA',
   SET_FOOD_CATEGORIES_DATA: 'SET_FOOD_CATEGORIES_DATA',
   SET_FOOD_DETAIL_DATA: 'SET_FOOD_DETAIL_DATA',
+  FILTER_FOOD: 'FILTER_FOOD',
+  FILTER_DRINK: 'FILTER_DRINK',
 };
+
+export const filterDrink = (payload) => ({
+  type: actions.FILTER_DRINK, payload,
+});
+
+export const filterFood = (payload) => ({
+  type: actions.FILTER_FOOD, payload,
+});
 
 export const requestApiFood = () => ({
   type: actions.REQUEST_FOOD_API,

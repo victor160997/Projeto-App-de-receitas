@@ -19,6 +19,8 @@ function foodReducer(state = INITIAL_STATE, action) {
     return { ...state, loading: false, foodDetail: action.payload };
   case actions.FAILED_REQUEST:
     return { ...state, loading: false, error: action.payload };
+  case actions.FILTER_FOOD:
+    return { ...state, loading: false, data: action.payload };
   default:
     return state;
   }

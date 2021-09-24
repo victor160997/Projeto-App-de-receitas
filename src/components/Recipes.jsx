@@ -9,18 +9,8 @@ class Recipes extends Component {
     this.redirectDetails = this.redirectDetails.bind(this);
   }
 
-  /* const { redirectDetailsFood } = this.props;
-  if (data.length === 1) {
-    return redirectDetailsFood(data[0].idMeal);
-  }
-
-   const { redirectDetailsDrink } = this.props;
-    if (data.length === 1) {
-      return redirectDetailsDrink(data[0].idDrink);
-    }
-  */
-
   redirectDetails(type, data) {
+  // tentar props dinamica
     if (type === 'Drink') {
       const { redirectDetailsDrink } = this.props;
       if (data.length === 1) {
@@ -29,7 +19,7 @@ class Recipes extends Component {
     }
     if (type === 'Meal') {
       const { redirectDetailsFood } = this.props;
-      if (data.length === 1) {
+      if (data.length === 1 && data[0].idMeal !== '52968') {
         return redirectDetailsFood(data[0].idMeal);
       }
     }
