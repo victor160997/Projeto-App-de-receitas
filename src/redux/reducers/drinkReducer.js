@@ -13,6 +13,8 @@ function drinkReducer(state = INITIAL_STATE, action) {
     return { ...state, loading: false, data: action.payload };
   case actions.FAILED_REQUEST:
     return { ...state, loading: false, error: action.payload };
+  case actions.FILTER_DRINK:
+    return { ...state, loading: false, data: action.payload };
   default:
     return state;
   }
