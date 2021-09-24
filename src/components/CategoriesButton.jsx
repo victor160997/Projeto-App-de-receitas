@@ -37,7 +37,7 @@ class CategoriesButton extends Component {
     const { type } = this.state;
     if (type === 'meals') {
       const { filterFoodProps } = this.props;
-      if (filterSelect === name) {
+      if (filterSelect === name || name === 'all') {
         this.setState({ filterSelect: '' });
         const resp = await getFoodApi('search.php?s=', '');
         return filterFoodProps(resp.meals);
@@ -47,7 +47,7 @@ class CategoriesButton extends Component {
       filterFoodProps(resp.meals);
     } else {
       const { filterDrinkProps } = this.props;
-      if (filterSelect === name) {
+      if (filterSelect === name || name === 'all') {
         this.setState({ filterSelect: '' });
         const resp = await getDrinksApi('search.php?s=', '');
         return filterDrinkProps(resp.drinks);
@@ -82,6 +82,14 @@ class CategoriesButton extends Component {
     const { response } = this.state;
     return (
       <div>
+        <button
+          name="all"
+          data-testid="All-category-filter"
+          type="button"
+          onClick={ (e) => this.filterCategory(e) }
+        >
+          All
+        </button>
         { response !== '' ? this.renderButton(response) : <span> Carregando </span> }
         Categories
       </div>
@@ -107,3 +115,30 @@ CategoriesButton.propTypes = {
   filterDrinkProps: PropTypes.func.isRequired,
   /* foodData: PropTypes.arrayOf(PropTypes.object).isRequired, */
 };
+
+/* async filterAllCategorys({ target }) {
+    const { name } = target;
+    const { filterSelect } = this.state;
+    const { type } = this.state;
+    const arrayCategories = await getFoodApi('list.php?c=list', '');
+    if (type === 'meals') {
+      const { filterFoodProps } = this.props;
+      if (filterSelect === name) {
+        this.setState({ filterSelect: '' });
+        const resp = await getFoodApi('search.php?s=', '');
+        return filterFoodProps(resp.meals);
+      }
+      this.setState({ filterSelect: name });
+      let arrayAllFood = [];
+      arrayCategories.meals.map(async (cat, i) => {
+        const four = 4;
+        if (i <= four) {
+          const resp = await getFoodApi(`filter.php?c=${cat.strCategory}`, '');
+          arrayAllFood = [...arrayAllFood, ...resp.meals];
+          console.log(arrayAllFood);
+        }
+        return undefined;
+      });
+      filterFoodProps(arrayAllFood);
+    }
+  } */
