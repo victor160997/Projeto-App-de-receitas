@@ -4,7 +4,6 @@ const INITIAL_STATE = {
   data: {},
   loading: false,
   foodCategoriesData: [],
-  foodDetail: [],
 };
 
 function foodReducer(state = INITIAL_STATE, action) {

@@ -2,7 +2,6 @@ import actions from '../actions';
 
 const INITIAL_STATE = {
   data: {},
-  drinkDetail: [],
   loading: false,
 };
 

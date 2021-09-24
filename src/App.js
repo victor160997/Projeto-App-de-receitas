@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-<<<<<<< HEAD
 import Details from './pages/Details';
-=======
-import Details from './pages/Deatails';
->>>>>>> c2dbbfe1444c556d2b41b89734ab1ada46c76409
 import DrinkRecipes from './pages/DrinkRecipes';
 import Explore from './pages/Explore';
 import ExploreDrink from './pages/ExploreDrink';
@@ -45,21 +41,14 @@ class App extends Component {
           path="/explorar/bebidas/ingredientes"
           component={ ExploreDrinkIngredientes }
         />
-<<<<<<< HEAD
         <Route
-          exact
           path="/comidas/:id"
           render={ (props) => <Details { ...props } /> }
         />
         <Route
-          exact
           path="/bebidas/:id"
           render={ (props) => <Details { ...props } /> }
         />
-=======
-        <Route path="/comidas/:idMeal" component={ Details } />
-        <Route path="/bebidas/:idDrink" component={ Details } />
->>>>>>> c2dbbfe1444c556d2b41b89734ab1ada46c76409
         <Route path="/" component={ Login } />
       </Switch>
     );

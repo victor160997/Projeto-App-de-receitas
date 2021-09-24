@@ -1,31 +1,75 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  fetchDrinkApi as fetchDrinkApiAction,
-  fetchFoodApi as fetchFoodApiAction,
-} from '../redux/actions';
+import { getDrinksApi, getFoodApi } from '../services';
 
 class Details extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      recipe: {},
+      recomendation: [],
+    };
+    this.renderIgredients = this.renderIgredients.bind(this);
+    this.fetchRecomendations = this.fetchRecomendations.bind(this);
+  }
+
   componentDidMount() {
-    const {
-      fetchDrinkApi,
-      fetchFoodApi,
-      match: { params: { id }, path } } = this.props;
+    this.fetchRecipeById();
+    this.fetchRecomendations();
+  }
+
+  async fetchRecomendations() {
+    const { match: { path } } = this.props;
     if (path.includes('/comidas')) {
-      fetchFoodApi('lookup.php?i=', id);
+      const response = await getFoodApi('search.php?s=', '');
+      this.setState({
+        recomendation: response.meals,
+      });
     } else {
-      fetchDrinkApi('lookup.php?i=', id);
+      const response = await getDrinksApi('search.php?s=', '');
+      this.setState({
+        recomendation: response.drinks,
+      });
     }
   }
 
+  async fetchRecipeById() {
+    const { match: { params: { id }, path } } = this.props;
+    if (path.includes('/comidas')) {
+      const response = await getFoodApi(`lookup.php?i=${id}`, '');
+      this.setState({
+        recipe: response.meals[0],
+      });
+    } else {
+      const response = await getDrinksApi(`lookup.php?i=${id}`, '');
+      this.setState({
+        recipe: response.drinks[0],
+      });
+    }
+  }
+
+  renderIgredients(recipe) {
+    const array = Object.keys(recipe);
+    const arrayVazio = [];
+    array.map((key) => {
+      if (key.includes('strIngredient') && recipe[key] !== null && recipe[key] !== '') {
+        arrayVazio.push(recipe[key]);
+        return arrayVazio;
+      }
+      return undefined;
+    });
+    return arrayVazio.map((igr, index) => (
+      <li data-testid={ `${index}-ingredient-name-and-measure` } key={ igr }>{ igr }</li>
+    ));
+  }
+
   render() {
-    const { match: { path }, foodData, drinkData } = this.props;
-    const recipe = path.includes('/comidas') ? { ...foodData } : { ...drinkData };
-    console.log(recipe);
+    const { match: { path } } = this.props;
+    const { recipe, recomendation } = this.state;
+    console.log(recomendation);
     return (
       <div>
-        x
         <img
           data-testid="recipe-photo"
           src={ recipe.strMealThumb ? recipe.strMealThumb : recipe.strDrinkThumb }
@@ -40,9 +84,53 @@ class Details extends Component {
         <div>
           <h2>Igredients</h2>
           <ul>
-            <li>a</li>
+            {this.renderIgredients(recipe)}
           </ul>
         </div>
+        <div>
+          <h2>Intructions</h2>
+          <span data-testid="instructions">{recipe.strInstructions}</span>
+        </div>
+        <div>
+          <h2>Video</h2>
+          <iframe
+            data-testid="video"
+            width="300"
+            height="150"
+            src={ recipe.strYoutube }
+            frameBorder="0"
+            allow="accelerometer; autoplay;
+             clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title="Embedded youtube"
+          />
+        </div>
+        { recomendation.length > 0 ? (
+          <div>
+            <div data-testid="0-recomendation-card">
+              <img
+                src={ path.includes('/comidas') ? recomendation[0].strMealThumb
+                  : recomendation[0].strDrinkThumb }
+                alt="alguma coisa"
+              />
+              <h2>
+                { path.includes('/comidas') ? recomendation[0].strMeal
+                  : recomendation[0].strDrink }
+              </h2>
+            </div>
+            <div data-testid="1-recomendation-card">
+              <img
+                src={ path.includes('/comidas') ? recomendation[1].strMealThumb
+                  : recomendation[1].strDrinkThumb }
+                alt="alguma coisa"
+              />
+              <h2>
+                { path.includes('/comidas') ? recomendation[1].strMeal
+                  : recomendation[1].strDrink }
+              </h2>
+            </div>
+          </div>) : <span>...Loading</span>}
+        <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
       </div>
     );
   }
@@ -53,39 +141,10 @@ Details.propTypes = {
     params: PropTypes.objectOf(PropTypes.string),
     path: PropTypes.string,
   }).isRequired,
-  fetchDrinkApi: PropTypes.func.isRequired,
-  fetchFoodApi: PropTypes.func.isRequired,
 };
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchDrinkApi: (p1, p2) => dispatch(fetchDrinkApiAction(p1, p2)),
-  fetchFoodApi: (p1, p2) => dispatch(fetchFoodApiAction(p1, p2)),
+const mapStateToProps = (state) => ({
+  foodData: state.foodData.data,
+  drinkData: state.drinkData.data,
 });
 
-const mapStateToProps = ({ foodData, drinkData }) => ({
-  foodData: foodData.foodDetail[0],
-  drinkData: drinkData.drinkDetail[0],
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Details);
-
-// async fetchRecipeById() {
-//   const { match: { params: { id }, path } } = this.props;
-//   // caso esteja sendo renderizada em /comidas/id
-//   if (path.includes('/comidas')) {
-//     const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-//     fetch(URL)
-//       .then((res) => res.json())
-//       .then((json) => this.setState({
-//         recipe: { ...json.meals[0],
-//         },
-//       }));
-//   }
-//   // caso esteja sendo renderizada em /bebidas/id
-//   const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-//   fetch(URL)
-//     .then((res) => res.json())
-//     .then((json) => this.setState({
-//       recipe: { ...json.drinks[0] },
-//     }));
-// }
+export default connect(mapStateToProps)(Details);
