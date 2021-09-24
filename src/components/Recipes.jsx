@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// import { Link } from 'react-router-dom';
 
 class Recipes extends Component {
   constructor() {
@@ -9,18 +10,8 @@ class Recipes extends Component {
     this.redirectDetails = this.redirectDetails.bind(this);
   }
 
-  /* const { redirectDetailsFood } = this.props;
-  if (data.length === 1) {
-    return redirectDetailsFood(data[0].idMeal);
-  }
-
-   const { redirectDetailsDrink } = this.props;
-    if (data.length === 1) {
-      return redirectDetailsDrink(data[0].idDrink);
-    }
-  */
-
   redirectDetails(type, data) {
+  // tentar props dinamica
     if (type === 'Drink') {
       const { redirectDetailsDrink } = this.props;
       if (data.length === 1) {
@@ -29,7 +20,7 @@ class Recipes extends Component {
     }
     if (type === 'Meal') {
       const { redirectDetailsFood } = this.props;
-      if (data.length === 1) {
+      if (data.length === 1 && data[0].idMeal !== '52968') {
         return redirectDetailsFood(data[0].idMeal);
       }
     }
@@ -38,11 +29,13 @@ class Recipes extends Component {
 
   renderRecipes(data, api, page) {
     this.redirectDetails(api, data);
+    // const { type } = this.props;
     const limitImgs = 12;
     return (
       <section>
         {
           data.map((curr, index) => {
+            /* to={`/%{type.toLowerCase()}/${api}`} */
             if (index < limitImgs) {
               return (
                 <div key={ index } data-testid={ `${index}-${page}-card` }>

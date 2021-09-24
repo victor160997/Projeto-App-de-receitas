@@ -102,13 +102,3 @@ export default class SearchBar extends Component {
 SearchBar.propTypes = {
   fetchApi: PropTypes.func.isRequired,
 };
-
-// const mapStateToProps = ({ foodData }) => ({
-//   foodData: foodData.data,
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-//   fetchFoodApi: (payload1, payload2) => dispatch(fetchFoodApiAction(payload1, payload2)),
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

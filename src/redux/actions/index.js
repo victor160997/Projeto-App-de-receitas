@@ -7,7 +7,17 @@ const actions = {
   SET_FOOD_DATA: 'SET_FOOD_DATA',
   FAILED_REQUEST: 'FAILED_REQUEST',
   SET_FOOD_CATEGORIES_DATA: 'SET_FOOD_CATEGORIES_DATA',
+  FILTER_FOOD: 'FILTER_FOOD',
+  FILTER_DRINK: 'FILTER_DRINK',
 };
+
+export const filterDrink = (payload) => ({
+  type: actions.FILTER_DRINK, payload,
+});
+
+export const filterFood = (payload) => ({
+  type: actions.FILTER_FOOD, payload,
+});
 
 export const requestApiFood = () => ({
   type: actions.REQUEST_FOOD_API,
@@ -38,10 +48,9 @@ export const fetchFoodApi = (payload1, payload2) => async (dispatch) => {
   try {
     const { meals, categories } = await getFoodApi(payload1, payload2);
     if (categories) {
-      dispatch(requestFoodCategoriesApi(categories));
-    } else {
-      dispatch(requestFoodApi(meals));
+      dispatch(requestFoodApi(categories));
     }
+    dispatch(requestFoodApi(meals));
   } catch (error) {
     dispatch(failedRequest(error.message));
   }

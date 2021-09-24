@@ -17,7 +17,7 @@ function Login() {
     <main className="log-container">
       <div className="none" />
       <form className="form">
-        <h2>Cooky</h2>
+        <h2>Recipes App</h2>
         <InputCard
           id="email"
           name="email"
@@ -28,7 +28,7 @@ function Login() {
         <InputCard
           id="login"
           name="login"
-          type="text"
+          type="password"
           testId="password-input"
           onChange={ ({ target: { value } }) => setPassword(value) }
         />
