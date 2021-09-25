@@ -10,7 +10,6 @@ class CategoriesButton extends Component {
     this.state = {
       response: '',
     };
-    this.filter = this.filter.bind(this);
     this.renderButton = this.renderButton.bind(this);
   }
 
@@ -29,13 +28,6 @@ class CategoriesButton extends Component {
     });
   }
 
-  filter({ target }) {
-    const { name } = target;
-    const { foodData } = this.props;
-    const filterArray = foodData.filter((value) => value.strCategory === name);
-    console.log(filterArray);
-  }
-
   renderButton(response) {
     const four = 4;
     return response.map((categ, index) => {
@@ -46,7 +38,6 @@ class CategoriesButton extends Component {
             type="button"
             data-testid={ `${Object.values(categ)[0]}-category-filter` }
             key={ Object.values(categ)[0] }
-            // onClick={ this.filter }
           >
             {Object.values(categ)[0]}
           </button>

@@ -46,7 +46,6 @@ class Recipes extends Component {
                     data-testid={ `${index}-card-img` }
                     width="200px"
                     alt="Recipe example"
-                    loading="lazy"
                   />
                   <span data-testid={ `${index}-card-name` }>{curr[`str${api}`]}</span>
                 </div>
