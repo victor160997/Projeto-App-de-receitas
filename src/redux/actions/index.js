@@ -12,6 +12,14 @@ const actions = {
   FILTER_DRINK: 'FILTER_DRINK',
 };
 
+export const filterDrink = (payload) => ({
+  type: actions.FILTER_DRINK, payload,
+});
+
+export const filterFood = (payload) => ({
+  type: actions.FILTER_FOOD, payload,
+});
+
 export const requestApiFood = () => ({
   type: actions.REQUEST_FOOD_API,
 });
