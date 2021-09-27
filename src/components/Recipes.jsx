@@ -26,7 +26,7 @@ class Recipes extends Component {
     return undefined;
   }
 
-  renderRecipes(data, api, page) {
+  renderRecipes(data, api, page, endpoint) {
     this.redirectDetails(api, data);
     const { type } = this.props;
     const limitImgs = 12;
@@ -35,10 +35,11 @@ class Recipes extends Component {
         {
           data.map((curr, index) => {
             if (index < limitImgs) {
-              const ingredientsURL = 'https://www.thecocktaildb.com/images/ingredients/';
-              const src = api !== 'Ingredient1'
+              const ingredientsURL = `https://www.${endpoint}.com/images/ingredients/`;
+              const key = `str${api}`;
+              const src = page !== 'ingredient'
                 ? curr[`str${api}Thumb`]
-                : `${ingredientsURL}${curr.strIngredient1.split(' ')
+                : `${ingredientsURL}${curr[key].split(' ')
                   .join(' ')}-Small.png`;
               return (
                 <Link to={ `/${type.toLowerCase()}/${curr[`id${api}`]}` }>
@@ -63,7 +64,7 @@ class Recipes extends Component {
 
   render() {
     const { type, drinkData, foodData } = this.props;
-    const { data, foodCategoriesData } = foodData;
+    const { data } = foodData;
     const { data: drinks } = drinkData;
     if (data === null || drinks === null) {
       return global
@@ -79,10 +80,12 @@ class Recipes extends Component {
           ? this.renderRecipes(data, 'Meal', 'recipe')
           : '' }
         {type === 'explore-drinks' && drinks.length
-          ? this.renderRecipes(drinks, 'Ingredient1', 'ingredient')
+          ? this
+            .renderRecipes(drinks, 'Ingredient1', 'ingredient', 'thecocktaildb')
           : '' }
-        {type === 'explore-ingrediente' && foodCategoriesData.length
-          ? this.renderRecipes(foodCategoriesData, 'Category', 'ingredient')
+        {type === 'explore-ingrediente' && data.length
+          ? this
+            .renderRecipes(data, 'Category', 'ingredient', 'themealdb')
           : '' }
       </div>
     );
