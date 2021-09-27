@@ -15,7 +15,8 @@ https://www.themealdb.com/api/json/v1/1/list.php?c=list
 
 const foodURL = 'https://www.themealdb.com/api/json/v1/1/';
 const drinkURL = 'https://www.thecocktaildb.com/api/json/v1/1/';
-
+const drinkImgURL = 'https://www.thecocktaildb.com/images/ingredients/';
+// Ice-Small.png : exemp
 export async function getFoodApi(type, food) {
   if (food === '') {
     const response = await fetch(`${foodURL}${type}`);
@@ -35,6 +36,12 @@ export async function getDrinksApi(type, drink) {
   }
   // console.log(`${drinkURL}${type}${drink}`);
   const response = await fetch(`${drinkURL}${type}${drink}`);
+  const data = await response.json();
+  return data;
+}
+
+export async function getDrinksIngredientsImages(ingredient, size) {
+  const response = await fetch(`${drinkImgURL}${ingredient}-${size}.png`);
   const data = await response.json();
   return data;
 }

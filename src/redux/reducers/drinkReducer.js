@@ -13,10 +13,10 @@ function drinkReducer(state = INITIAL_STATE, action) {
     return { ...state, loading: false, data: action.payload };
   case actions.SET_DRINK_DETAIL_DATA:
     return { ...state, loading: false, drinkDetail: action.payload };
-  case actions.FAILED_REQUEST:
-    return { ...state, loading: false, error: action.payload };
   case actions.FILTER_DRINK:
     return { ...state, loading: false, data: action.payload };
+  case actions.FAILED_REQUEST:
+    return { ...state, loading: false, error: action.payload };
   default:
     return state;
   }
