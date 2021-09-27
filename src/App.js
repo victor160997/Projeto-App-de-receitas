@@ -41,8 +41,14 @@ class App extends Component {
           path="/explorar/bebidas/ingredientes"
           component={ ExploreDrinkIngredientes }
         />
-        <Route path="/comidas/:idMeal" component={ Details } />
-        <Route path="/bebidas/:idDrink" component={ Details } />
+        <Route
+          path="/comidas/:id"
+          render={ (props) => <Details { ...props } /> }
+        />
+        <Route
+          path="/bebidas/:id"
+          render={ (props) => <Details { ...props } /> }
+        />
         <Route path="/" component={ Login } />
       </Switch>
     );
