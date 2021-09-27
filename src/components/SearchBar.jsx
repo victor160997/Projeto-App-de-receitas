@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import { fetchFoodApi as fetchFoodApiAction } from '../redux/actions';
 
 export default class SearchBar extends Component {
   constructor(props) {
@@ -14,11 +12,6 @@ export default class SearchBar extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.setSearch = this.setSearch.bind(this);
   }
-
-  /* componentDidMount() {
-    const { fetchFoodApi } = this.props;
-    fetchFoodApi('search.php?f=', 'o');
-  } */
 
   componentDidUpdate(props) {
     const { fetchApi } = props;
