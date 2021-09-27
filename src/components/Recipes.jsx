@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Recipes extends Component {
   constructor() {
@@ -27,9 +27,9 @@ class Recipes extends Component {
     return undefined;
   }
 
-  renderRecipes(data, api, page) {
+  renderRecipes(data, api) {
     this.redirectDetails(api, data);
-    // const { type } = this.props;
+    const { type } = this.props;
     const limitImgs = 12;
     return (
       <section>
@@ -38,16 +38,18 @@ class Recipes extends Component {
             /* to={`/%{type.toLowerCase()}/${api}`} */
             if (index < limitImgs) {
               return (
-                <div key={ index } data-testid={ `${index}-${page}-card` }>
-                  <img
-                    src={ curr[`str${api}Thumb`] }
-                    data-testid={ `${index}-card-img` }
-                    width="200px"
-                    alt="Recipe example"
-                    loading="lazy"
-                  />
-                  <span data-testid={ `${index}-card-name` }>{curr[`str${api}`]}</span>
-                </div>
+                <Link to={ `/${type.toLowerCase()}/${curr[`id${api}`]}` }>
+                  <div key={ index } data-testid={ `${index}-recipe-card` }>
+                    <img
+                      src={ curr[`str${api}Thumb`] }
+                      data-testid={ `${index}-card-img` }
+                      width="200px"
+                      alt="Recipe example"
+                      loading="lazy"
+                    />
+                    <span data-testid={ `${index}-card-name` }>{curr[`str${api}`]}</span>
+                  </div>
+                </Link>
               );
             }
             return null;
@@ -59,9 +61,6 @@ class Recipes extends Component {
 
   render() {
     const { type, drinkData, foodData } = this.props;
-    const { data, categoriesData } = foodData;
-    const { data: drinks } = drinkData;
-
     if (foodData === null || drinkData === null) {
       return global
         .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -69,23 +68,20 @@ class Recipes extends Component {
 
     return (
       <div>
-        {type === 'Bebidas' && drinks.length
-          ? this.renderRecipes(drinks, 'Drink', 'recipe')
+        {type === 'Bebidas' && drinkData.length
+          ? this.renderRecipes(drinkData, 'Drink')
           : '' }
-        {type === 'Comidas' && data.length
-          ? this.renderRecipes(data, 'Meal', 'recipe')
-          : '' }
-        {type === 'Ingrediente' && categoriesData.length
-          ? this.renderRecipes(categoriesData, 'Category', 'ingredient')
+        {type === 'Comidas' && foodData.length
+          ? this.renderRecipes(foodData, 'Meal')
           : '' }
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ foodData, drinkData }) => ({
-  foodData,
-  drinkData,
+const mapStateToProps = (state) => ({
+  foodData: state.foodData.data,
+  drinkData: state.drinkData.data,
 });
 
 export default connect(mapStateToProps)(Recipes);
