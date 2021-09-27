@@ -114,3 +114,30 @@ CategoriesButton.propTypes = {
   filterFoodProps: PropTypes.func.isRequired,
   filterDrinkProps: PropTypes.func.isRequired,
 };
+
+/* async filterAllCategorys({ target }) {
+    const { name } = target;
+    const { filterSelect } = this.state;
+    const { type } = this.state;
+    const arrayCategories = await getFoodApi('list.php?c=list', '');
+    if (type === 'meals') {
+      const { filterFoodProps } = this.props;
+      if (filterSelect === name) {
+        this.setState({ filterSelect: '' });
+        const resp = await getFoodApi('search.php?s=', '');
+        return filterFoodProps(resp.meals);
+      }
+      this.setState({ filterSelect: name });
+      let arrayAllFood = [];
+      arrayCategories.meals.map(async (cat, i) => {
+        const four = 4;
+        if (i <= four) {
+          const resp = await getFoodApi(`filter.php?c=${cat.strCategory}`, '');
+          arrayAllFood = [...arrayAllFood, ...resp.meals];
+          console.log(arrayAllFood);
+        }
+        return undefined;
+      });
+      filterFoodProps(arrayAllFood);
+    }
+  } */

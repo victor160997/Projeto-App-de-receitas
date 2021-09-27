@@ -35,6 +35,7 @@ class Recipes extends Component {
       <section>
         {
           data.map((curr, index) => {
+            /* to={`/%{type.toLowerCase()}/${api}`} */
             if (index < limitImgs) {
               const ingredientsURL = 'https://www.thecocktaildb.com/images/ingredients/';
               const src = api !== 'explore-drinks'
