@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getDrinksApi, getFoodApi } from '../services';
+import './details.css';
 
 class Details extends Component {
   constructor(props) {
@@ -12,6 +14,9 @@ class Details extends Component {
     };
     this.renderIgredients = this.renderIgredients.bind(this);
     this.fetchRecomendations = this.fetchRecomendations.bind(this);
+    this.renderVideo = this.renderVideo.bind(this);
+    this.renderCategory = this.renderCategory.bind(this);
+    this.renderRecomendation = this.renderRecomendation.bind(this);
   }
 
   componentDidMount() {
@@ -22,14 +27,14 @@ class Details extends Component {
   async fetchRecomendations() {
     const { match: { path } } = this.props;
     if (path.includes('/comidas')) {
-      const response = await getFoodApi('search.php?s=', '');
-      this.setState({
-        recomendation: response.meals,
-      });
-    } else {
       const response = await getDrinksApi('search.php?s=', '');
       this.setState({
         recomendation: response.drinks,
+      });
+    } else {
+      const response = await getFoodApi('search.php?s=', '');
+      this.setState({
+        recomendation: response.meals,
       });
     }
   }
@@ -60,37 +65,20 @@ class Details extends Component {
       return undefined;
     });
     return arrayVazio.map((igr, index) => (
-      <li data-testid={ `${index}-ingredient-name-and-measure` } key={ igr }>{ igr }</li>
+      <li
+        data-testid={ `${index}-ingredient-name-and-measure` }
+        key={ igr }
+      >
+        { igr }
+        -
+        { recipe[`strMeasure${index + 1}`] }
+      </li>
     ));
   }
 
-  render() {
-    const { match: { path } } = this.props;
-    const { recipe, recomendation } = this.state;
-    console.log(recomendation);
-    return (
-      <div>
-        <img
-          data-testid="recipe-photo"
-          src={ recipe.strMealThumb ? recipe.strMealThumb : recipe.strDrinkThumb }
-          alt={ recipe.strMeal ? recipe.strMeal : recipe.strDrink }
-        />
-        <h1 data-testid="recipe-title">
-          { recipe.strMeal ? recipe.strMeal : recipe.strDrink }
-        </h1>
-        <button data-testid="share-btn" type="button">compartilhar</button>
-        <button data-testid="favorite-btn" type="button">favoritar</button>
-        <h2 data-testid="recipe-category">{recipe.trCategory}</h2>
-        <div>
-          <h2>Igredients</h2>
-          <ul>
-            {this.renderIgredients(recipe)}
-          </ul>
-        </div>
-        <div>
-          <h2>Intructions</h2>
-          <span data-testid="instructions">{recipe.strInstructions}</span>
-        </div>
+  renderVideo(path, recipe) {
+    if (path.includes('/comidas')) {
+      return (
         <div>
           <h2>Video</h2>
           <iframe
@@ -105,32 +93,90 @@ class Details extends Component {
             title="Embedded youtube"
           />
         </div>
-        { recomendation.length > 0 ? (
-          <div>
-            <div data-testid="0-recomendation-card">
-              <img
-                src={ path.includes('/comidas') ? recomendation[0].strMealThumb
-                  : recomendation[0].strDrinkThumb }
-                alt="alguma coisa"
-              />
-              <h2>
-                { path.includes('/comidas') ? recomendation[0].strMeal
-                  : recomendation[0].strDrink }
-              </h2>
-            </div>
-            <div data-testid="1-recomendation-card">
-              <img
-                src={ path.includes('/comidas') ? recomendation[1].strMealThumb
-                  : recomendation[1].strDrinkThumb }
-                alt="alguma coisa"
-              />
-              <h2>
-                { path.includes('/comidas') ? recomendation[1].strMeal
-                  : recomendation[1].strDrink }
-              </h2>
-            </div>
-          </div>) : <span>...Loading</span>}
-        <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      );
+    }
+    return undefined;
+  }
+
+  renderCategory(path, recipe) {
+    if (path.includes('/comidas')) {
+      return (
+        <h2 data-testid="recipe-category">{recipe.strCategory}</h2>
+      );
+    }
+    return (
+      <div>
+        <h2 data-testid="recipe-category">{recipe.strAlcoholic}</h2>
+        <h2 data-testid="recipe-category">{recipe.strCategory}</h2>
+      </div>
+    );
+  }
+
+  renderRecomendation(recomendation, path) {
+    const six = 6;
+    return recomendation.map((rec, index) => {
+      if (index < six) {
+        return (
+          <div data-testid={ `${index}-recomendation-card` } className="recomendation">
+            <img
+              src={ path.includes('/comidas') ? rec.strDrinkThumb
+                : rec.strMealThumb }
+              alt="alguma coisa"
+            />
+            <h2 data-testid={ `${index}-recomendation-title` }>
+              { path.includes('/comidas') ? rec.strDrink
+                : rec.strMeal }
+            </h2>
+          </div>
+        );
+      }
+      return undefined;
+    });
+  }
+
+  render() {
+    const { match: { path }, location: { pathname } } = this.props;
+    console.log(pathname);
+    const { recipe, recomendation } = this.state;
+    console.log(recomendation);
+    return (
+      <div className="body-details">
+        <img
+          data-testid="recipe-photo"
+          src={ recipe.strMealThumb ? recipe.strMealThumb : recipe.strDrinkThumb }
+          alt={ recipe.strMeal ? recipe.strMeal : recipe.strDrink }
+          width="300vw"
+        />
+        <h1 data-testid="recipe-title">
+          { recipe.strMeal ? recipe.strMeal : recipe.strDrink }
+        </h1>
+        <button data-testid="share-btn" type="button">compartilhar</button>
+        <button data-testid="favorite-btn" type="button">favoritar</button>
+        { this.renderCategory(path, recipe) }
+        <div>
+          <h2>Igredients</h2>
+          <ul>
+            {this.renderIgredients(recipe)}
+          </ul>
+        </div>
+        <div>
+          <h2>Intructions</h2>
+          <span data-testid="instructions">{recipe.strInstructions}</span>
+        </div>
+        { this.renderVideo(path, recipe) }
+        <div className="details-recomendation">
+          { recomendation.length > 0
+            ? this.renderRecomendation(recomendation, path) : <span>...Loading</span>}
+        </div>
+        <Link to={ `${pathname}/in-progress` }>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="button-iniciar"
+          >
+            Iniciar Receita
+          </button>
+        </Link>
       </div>
     );
   }
@@ -141,6 +187,7 @@ Details.propTypes = {
     params: PropTypes.objectOf(PropTypes.string),
     path: PropTypes.string,
   }).isRequired,
+  location: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 const mapStateToProps = (state) => ({
   foodData: state.foodData.data,

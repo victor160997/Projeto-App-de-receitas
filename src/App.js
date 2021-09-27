@@ -12,6 +12,7 @@ import Favorites from './pages/Favorites';
 import FoodRecipes from './pages/FoodRecipes';
 import Login from './pages/Login';
 import Perfil from './pages/Perfil';
+import ReceipeInProgress from './pages/ReceipeInProgress';
 import RecipesMade from './pages/RecipesMade';
 
 class App extends Component {
@@ -42,12 +43,24 @@ class App extends Component {
           component={ ExploreDrinkIngredientes }
         />
         <Route
+          exact
           path="/comidas/:id"
           render={ (props) => <Details { ...props } /> }
         />
         <Route
+          exact
           path="/bebidas/:id"
           render={ (props) => <Details { ...props } /> }
+        />
+        <Route
+          exact
+          path="/comidas/:id/in-progress"
+          render={ (props) => <ReceipeInProgress { ...props } /> }
+        />
+        <Route
+          exact
+          path="/bebidas/:id/in-progress"
+          render={ (props) => <ReceipeInProgress { ...props } /> }
         />
         <Route path="/" component={ Login } />
       </Switch>
