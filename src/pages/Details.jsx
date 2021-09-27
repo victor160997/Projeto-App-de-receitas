@@ -131,6 +131,7 @@ class Details extends Component {
             </div>
           </div>) : <span>...Loading</span>}
         <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+
       </div>
     );
   }

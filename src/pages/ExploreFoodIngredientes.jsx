@@ -13,11 +13,10 @@ class ExploreFoodIngredientes extends Component {
   }
 
   render() {
-    const { foodData } = this.props;
     return (
       <div>
         <HeaderExplore titlePage="Explorar Ingredientes" />
-        <Recipes type="Ingrediente" foodData={ foodData } />
+        <Recipes type="explore-ingrediente" />
         <Footer />
       </div>
     );
@@ -25,16 +24,11 @@ class ExploreFoodIngredientes extends Component {
 }
 
 ExploreFoodIngredientes.propTypes = {
-  foodData: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchFood: PropTypes.func.isRequired,
 };
-
-const mapStateToProps = ({ foodData }) => ({
-  foodData: foodData.categoriesData,
-});
 
 const mapDispatchToProps = (dispatch) => ({
   fetchFood: (payload1, payload2) => dispatch(fetchFoodApi(payload1, payload2)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExploreFoodIngredientes);
+export default connect(null, mapDispatchToProps)(ExploreFoodIngredientes);

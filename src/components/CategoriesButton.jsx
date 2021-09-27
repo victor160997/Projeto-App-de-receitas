@@ -113,7 +113,6 @@ CategoriesButton.propTypes = {
   category: PropTypes.string.isRequired,
   filterFoodProps: PropTypes.func.isRequired,
   filterDrinkProps: PropTypes.func.isRequired,
-  /* foodData: PropTypes.arrayOf(PropTypes.object).isRequired, */
 };
 
 /* async filterAllCategorys({ target }) {

@@ -26,6 +26,7 @@ class DrinkRecipes extends Component {
   render() {
     const { fetchDrink } = this.props;
     const Bebidas = 'Bebidas';
+    // const Drink = 'Drink';
     return (
       <div>
         <Header titlePage={ Bebidas } fetchApi={ fetchDrink } />

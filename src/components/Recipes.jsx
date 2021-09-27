@@ -37,15 +37,19 @@ class Recipes extends Component {
           data.map((curr, index) => {
             /* to={`/%{type.toLowerCase()}/${api}`} */
             if (index < limitImgs) {
+              const ingredientsURL = 'https://www.thecocktaildb.com/images/ingredients/';
+              const src = api !== 'explore-drinks'
+                ? curr[`str${api}Thumb`]
+                : `${ingredientsURL}${curr.strIngredient1.split(' ')
+                  .join('%20')}-Small.png`;
               return (
                 <Link to={ `/${type.toLowerCase()}/${curr[`id${api}`]}` }>
-                  <div key={ index } data-testid={ `${index}-recipe-card` }>
+                  <div key={ index } data-testid={ `${index}-${page}-card` }>
                     <img
-                      src={ curr[`str${api}Thumb`] }
+                      src={ src }
                       data-testid={ `${index}-card-img` }
                       width="200px"
                       alt="Recipe example"
-                      loading="lazy"
                     />
                     <span data-testid={ `${index}-card-name` }>{curr[`str${api}`]}</span>
                   </div>
@@ -61,18 +65,26 @@ class Recipes extends Component {
 
   render() {
     const { type, drinkData, foodData } = this.props;
-    if (foodData === null || drinkData === null) {
+    const { data, categoriesData } = foodData;
+    const { data: drinks } = drinkData;
+    if (data === null || drinks === null) {
       return global
         .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
 
     return (
       <div>
-        {type === 'Bebidas' && drinkData.length
-          ? this.renderRecipes(drinkData, 'Drink')
+        {type === 'Bebidas' && drinks.length
+          ? this.renderRecipes(drinks, 'Drink', 'recipe')
           : '' }
-        {type === 'Comidas' && foodData.length
-          ? this.renderRecipes(foodData, 'Meal')
+        {type === 'Comidas' && data.length
+          ? this.renderRecipes(data, 'Meal', 'recipe')
+          : '' }
+        {type === 'explore-drinks' && drinks.length
+          ? this.renderRecipes(drinks, type, 'ingredient')
+          : '' }
+        {type === 'explore-ingrediente' && categoriesData.length
+          ? this.renderRecipes(categoriesData, 'Category', 'ingredient')
           : '' }
       </div>
     );
