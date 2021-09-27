@@ -50,6 +50,7 @@ class Recipes extends Component {
                       data-testid={ `${index}-card-img` }
                       width="200px"
                       alt="Recipe example"
+                    />
                     <span data-testid={ `${index}-card-name` }>{curr[`str${api}`]}</span>
                   </div>
                 </Link>
@@ -67,13 +68,12 @@ class Recipes extends Component {
     const { data, categoriesData } = foodData;
     const { data: drinks } = drinkData;
     if (data === null || drinks === null) {
-
       return global
         .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
 
     return (
-          <div>
+      <div>
         {type === 'Bebidas' && drinks.length
           ? this.renderRecipes(drinks, 'Drink', 'recipe')
           : '' }
