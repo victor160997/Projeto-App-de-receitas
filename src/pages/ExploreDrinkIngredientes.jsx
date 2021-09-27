@@ -8,7 +8,6 @@ import Recipes from '../components/Recipes';
 
 class ExploreDrinkIngredientes extends Component {
   componentDidMount() {
-    // list.php?i=list
     const { fetchDrink } = this.props;
     fetchDrink('list.php?i=', 'list');
   }

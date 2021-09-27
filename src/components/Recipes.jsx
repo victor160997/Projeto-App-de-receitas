@@ -11,7 +11,6 @@ class Recipes extends Component {
   }
 
   redirectDetails(type, data) {
-  // tentar props dinamica
     if (type === 'Drink') {
       const { redirectDetailsDrink } = this.props;
       if (data.length === 1) {
@@ -27,7 +26,7 @@ class Recipes extends Component {
     return undefined;
   }
 
-  renderRecipes(data, api) {
+  renderRecipes(data, api, page) {
     this.redirectDetails(api, data);
     const { type } = this.props;
     const limitImgs = 12;
@@ -35,13 +34,12 @@ class Recipes extends Component {
       <section>
         {
           data.map((curr, index) => {
-            /* to={`/%{type.toLowerCase()}/${api}`} */
             if (index < limitImgs) {
               const ingredientsURL = 'https://www.thecocktaildb.com/images/ingredients/';
-              const src = api !== 'explore-drinks'
+              const src = api !== 'Ingredient1'
                 ? curr[`str${api}Thumb`]
                 : `${ingredientsURL}${curr.strIngredient1.split(' ')
-                  .join('%20')}-Small.png`;
+                  .join(' ')}-Small.png`;
               return (
                 <Link to={ `/${type.toLowerCase()}/${curr[`id${api}`]}` }>
                   <div key={ index } data-testid={ `${index}-${page}-card` }>
@@ -65,7 +63,7 @@ class Recipes extends Component {
 
   render() {
     const { type, drinkData, foodData } = this.props;
-    const { data, categoriesData } = foodData;
+    const { data, foodCategoriesData } = foodData;
     const { data: drinks } = drinkData;
     if (data === null || drinks === null) {
       return global
@@ -81,19 +79,19 @@ class Recipes extends Component {
           ? this.renderRecipes(data, 'Meal', 'recipe')
           : '' }
         {type === 'explore-drinks' && drinks.length
-          ? this.renderRecipes(drinks, type, 'ingredient')
+          ? this.renderRecipes(drinks, 'Ingredient1', 'ingredient')
           : '' }
-        {type === 'explore-ingrediente' && categoriesData.length
-          ? this.renderRecipes(categoriesData, 'Category', 'ingredient')
+        {type === 'explore-ingrediente' && foodCategoriesData.length
+          ? this.renderRecipes(foodCategoriesData, 'Category', 'ingredient')
           : '' }
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  foodData: state.foodData.data,
-  drinkData: state.drinkData.data,
+const mapStateToProps = ({ foodData, drinkData }) => ({
+  foodData,
+  drinkData,
 });
 
 export default connect(mapStateToProps)(Recipes);
