@@ -85,7 +85,7 @@ class Recipes extends Component {
           : '' }
         {type === 'explore-ingrediente' && data.length
           ? this
-            .renderRecipes(data, 'Category', 'ingredient', 'themealdb')
+            .renderRecipes(data, 'Ingredient', 'ingredient', 'themealdb')
           : '' }
       </div>
     );
