@@ -48,7 +48,7 @@ class Recipes extends Component {
                       src={ src }
                       data-testid={ `${index}-card-img` }
                       width="200px"
-                      alt="Recipe example"
+                      alt="Recipe examples"
                     />
                     <span data-testid={ `${index}-card-name` }>{curr[`str${api}`]}</span>
                   </div>
