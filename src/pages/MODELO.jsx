@@ -8,7 +8,7 @@ class MODELO extends React.Component {
     super();
     this.state = {
       type: 'search.php?f=',
-      drink: 'c',
+      drink: 'cie',
     };
   }
 
