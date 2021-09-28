@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import copyToClipBoard from 'clipboard-copy';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import Header from './Header';
 
 export default function FavoriteCards(props) {
   const { recipe, index, onFavoriteClick, handleRedirect } = props;
@@ -46,6 +47,7 @@ export default function FavoriteCards(props) {
 
   return (
     <section className="favorite-card" data-testid="favorite-card">
+      <Header />
       <div className="image-section">
         <button
           type="button"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import Header from '../components/Header';
+import HeaderExplore from '../components/HeaderExplore';
 import FavoriteCards from '../components/FavoriteCards';
 
 export default function ReceitasFeitas() {
@@ -41,7 +41,7 @@ export default function ReceitasFeitas() {
       setFavoritesFiltered(newFilter);
       return;
     }
-    // bebida
+
     const newFilter = favorites.filter((favorite) => favorite.type === 'bebida');
     setFavoritesFiltered(newFilter);
   };
@@ -64,7 +64,8 @@ export default function ReceitasFeitas() {
 
   return (
     <section>
-      <Header title="Receitas Favoritas" />
+      <HeaderExplore titlePage="Receitas Favoritas" />
+      Receitas Favoritas
       <div className="filter-section">
         <button
           data-testid="filter-by-all-btn"
