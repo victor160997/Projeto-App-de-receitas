@@ -4,16 +4,44 @@ import Footer from '../components/Footer';
 import HeaderExplore from '../components/HeaderExplore';
 
 export default class ExploreFood extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      id: 0,
+    };
+    this.surpriseButton = this.surpriseButton.bind(this);
+  }
+
+  componentDidMount() {
+    this.surpriseButton();
+  }
+
+  async surpriseButton() {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+    const data = await response.json();
+    const newId = await data.meals[0].idMeal;
+    this.setState(({
+      id: newId,
+    }));
+    console.log(data);
+    this.surpriseButton.bind(this);
+  }
+
   render() {
+    const { id } = this.state;
     return (
       <div>
         <HeaderExplore titlePage="Explorar Comidas" />
         Explorar comidas
-        <Link to="/explorar/comidas/ingredientes">
-          <h3>Por Ingredientes</h3>
+        <Link data-testid="explore-by-ingredient" to="/explorar/comidas/ingredientes">
+          Por Ingredientes
         </Link>
-        <Link to="/explorar/comidas/area">
-          <h3>Por Local de Origem</h3>
+        <Link to="/explorar/comidas/area" data-testid="explore-by-area">
+          Por Local de Origem
+        </Link>
+        <Link to={`/comidas/${id}`} data-testid="explore-surprise">
+          Me Surpreenda!
         </Link>
         <Footer />
       </div>
