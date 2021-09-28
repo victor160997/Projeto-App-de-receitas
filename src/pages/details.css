@@ -7,18 +7,19 @@
   .details-recomendation {
     display: flex;
     flex-flow: row;
+    margin-bottom: 40px;
     overflow: auto;
     width: 100vw;
   }
 
   .recomendation {
     height: 100%;
-    width: 50vw;
+    width: 181px;
   }
 
   .recomendation img {
     height: 100%;
-    width: 50vw;
+    width: 181px;
   }
 
   .button-iniciar {

@@ -2,6 +2,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {
+  adcMadeRecipesFood as madeFoodAction,
+  adcMadeRecipesDrink as madeDrinkAction,
+} from '../redux/actions';
+
 import { getDrinksApi, getFoodApi } from '../services';
 import './details.css';
 
@@ -17,11 +22,20 @@ class Details extends Component {
     this.renderVideo = this.renderVideo.bind(this);
     this.renderCategory = this.renderCategory.bind(this);
     this.renderRecomendation = this.renderRecomendation.bind(this);
+    this.clearButton = this.clearButton.bind(this);
   }
 
   componentDidMount() {
     this.fetchRecipeById();
     this.fetchRecomendations();
+    const storageDrink = JSON.parse(localStorage.getItem('madeDrink'));
+    const storageFood = JSON.parse(localStorage.getItem('madeFood'));
+    if (!storageDrink) {
+      localStorage.setItem('madeDrink', JSON.stringify([]));
+    }
+    if (!storageFood) {
+      localStorage.setItem('madeFood', JSON.stringify([]));
+    }
   }
 
   async fetchRecomendations() {
@@ -51,6 +65,22 @@ class Details extends Component {
       this.setState({
         recipe: response.drinks[0],
       });
+    }
+  }
+
+  clearButton() {
+    const { recipe } = this.state;
+    const { adcMadeFood, adcMadeDrink } = this.props;
+    if (recipe.idMeal) {
+      adcMadeFood(recipe.idMeal);
+      const storage = JSON.parse(localStorage.getItem('madeFood'));
+      const array = [...storage, recipe.idMeal];
+      localStorage.setItem('madeFood', JSON.stringify(array));
+    } else {
+      adcMadeDrink(recipe.idDrink);
+      const storage = JSON.parse(localStorage.getItem('madeDrink'));
+      const array = [...storage, recipe.idDrink];
+      localStorage.setItem('madeDrink', JSON.stringify(array));
     }
   }
 
@@ -85,7 +115,8 @@ class Details extends Component {
             data-testid="video"
             width="300"
             height="150"
-            src={ recipe.strYoutube }
+            src={ recipe.strYoutube
+              ? recipe.strYoutube.replace('watch?v=', 'embed/') : undefined }
             frameBorder="0"
             allow="accelerometer; autoplay;
              clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -136,9 +167,7 @@ class Details extends Component {
 
   render() {
     const { match: { path }, location: { pathname } } = this.props;
-    console.log(pathname);
     const { recipe, recomendation } = this.state;
-    console.log(recomendation);
     return (
       <div className="body-details">
         <img
@@ -173,6 +202,7 @@ class Details extends Component {
             type="button"
             data-testid="start-recipe-btn"
             className="button-iniciar"
+            onClick={ this.clearButton }
           >
             Iniciar Receita
           </button>
@@ -183,6 +213,8 @@ class Details extends Component {
 }
 
 Details.propTypes = {
+  adcMadeDrink: PropTypes.func.isRequired,
+  adcMadeFood: PropTypes.func.isRequired,
   match: PropTypes.objectOf({
     params: PropTypes.objectOf(PropTypes.string),
     path: PropTypes.string,
@@ -194,4 +226,9 @@ const mapStateToProps = (state) => ({
   drinkData: state.drinkData.data,
 });
 
-export default connect(mapStateToProps)(Details);
+const mapDispatchToProps = (dispatch) => ({
+  adcMadeFood: (payload) => dispatch(madeFoodAction(payload)),
+  adcMadeDrink: (payload) => dispatch(madeDrinkAction(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details);
