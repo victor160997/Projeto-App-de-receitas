@@ -169,13 +169,15 @@ class Details extends Component {
             ? this.renderRecomendation(recomendation, path) : <span>...Loading</span>}
         </div>
         <Link to={ `${pathname}/in-progress` }>
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            className="button-iniciar"
-          >
-            Iniciar Receita
-          </button>
+          <div id="button-details">
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="button-iniciar"
+            >
+              Iniciar Receita
+            </button>
+          </div>
         </Link>
       </div>
     );
