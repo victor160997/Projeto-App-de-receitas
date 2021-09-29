@@ -7,6 +7,17 @@ import { fetchFoodApi } from '../redux/actions';
 import Recipes from '../components/Recipes';
 
 class ExploreFoodIngredientes extends Component {
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     ingredient: '',
+  //   };
+  // }
+
+  // handleClick() {
+
+  // }
+
   componentDidMount() {
     const { fetchFood } = this.props;
     fetchFood('list.php?i=list', '');
