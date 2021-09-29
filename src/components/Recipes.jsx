@@ -37,9 +37,10 @@ class Recipes extends Component {
             if (index < limitImgs) {
               const ingredientsURL = `https://www.${endpoint}.com/images/ingredients/`;
               const key = `str${api}`;
+              const ingredient = curr[key];
               const src = page !== 'ingredient'
                 ? curr[`str${api}Thumb`]
-                : `${ingredientsURL}${curr[key].split(' ')
+                : `${ingredientsURL}${ingredient.split(' ')
                   .join(' ')}-Small.png`;
               return (
                 <Link to={ `/${type.toLowerCase()}/${curr[`id${api}`]}` }>
@@ -64,9 +65,9 @@ class Recipes extends Component {
 
   render() {
     const { type, drinkData, foodData } = this.props;
-    const { data } = foodData;
+    const { data: meals } = foodData;
     const { data: drinks } = drinkData;
-    if (data === null || drinks === null) {
+    if (meals === null || drinks === null) {
       return global
         .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
@@ -76,16 +77,16 @@ class Recipes extends Component {
         {type === 'Bebidas' && drinks.length
           ? this.renderRecipes(drinks, 'Drink', 'recipe')
           : '' }
-        {type === 'Comidas' && data.length
-          ? this.renderRecipes(data, 'Meal', 'recipe')
+        {type === 'Comidas' && meals.length
+          ? this.renderRecipes(meals, 'Meal', 'recipe')
           : '' }
         {type === 'explore-drinks' && drinks.length
           ? this
             .renderRecipes(drinks, 'Ingredient1', 'ingredient', 'thecocktaildb')
           : '' }
-        {type === 'explore-ingrediente' && data.length
+        {type === 'explore-ingrediente' && meals.length
           ? this
-            .renderRecipes(data, 'Ingredient', 'ingredient', 'themealdb')
+            .renderRecipes(meals, 'Ingredient', 'ingredient', 'themealdb')
           : '' }
       </div>
     );

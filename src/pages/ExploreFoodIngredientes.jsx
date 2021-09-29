@@ -9,7 +9,7 @@ import Recipes from '../components/Recipes';
 class ExploreFoodIngredientes extends Component {
   componentDidMount() {
     const { fetchFood } = this.props;
-    fetchFood('list.php?i=', 'list');
+    fetchFood('list.php?i=list', '');
   }
 
   render() {
