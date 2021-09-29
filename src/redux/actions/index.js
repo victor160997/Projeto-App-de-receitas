@@ -8,7 +8,17 @@ const actions = {
   FAILED_REQUEST: 'FAILED_REQUEST',
   FILTER_FOOD: 'FILTER_FOOD',
   FILTER_DRINK: 'FILTER_DRINK',
+  RECIPES_MADE_FOOD: 'RECIPES_MADE_FOOD',
+  RECIPES_MADE_DRINK: 'RECIPES_MADE_DRINK',
 };
+
+export const adcMadeRecipesFood = (payload) => ({
+  type: actions.RECIPES_MADE_FOOD, payload,
+});
+
+export const adcMadeRecipesDrink = (payload) => ({
+  type: actions.RECIPES_MADE_DRINK, payload,
+});
 
 export const filterDrink = (payload) => ({
   type: actions.FILTER_DRINK, payload,
