@@ -44,6 +44,10 @@ class Details extends Component {
     if (!storageFavorites) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
+    const storageInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!storageInProgress) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({}));
+    }
     this.setFavorite();
   }
 
@@ -157,7 +161,7 @@ class Details extends Component {
               {/* { storageDrink && storageFood
                 ? this.renderButton(id, storageDrink, storageFood)
                 : <span>loading</span> } */}
-              { renderButton() }
+              { renderButton(recipe) }
             </Link>
           </div>
         </div>
