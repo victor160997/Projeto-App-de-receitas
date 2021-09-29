@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import recipesProvider from '../helper/recipesProvider';
 
 class Recipes extends Component {
   constructor() {
@@ -26,7 +27,8 @@ class Recipes extends Component {
     return undefined;
   }
 
-  renderRecipes(data, api, page, endpoint, path) {
+  renderRecipes(data, items) {
+    const { api, page, endpoint, path } = items;
     this.redirectDetails(api, data);
     const { type } = this.props;
     const limitImgs = 12;
@@ -45,7 +47,7 @@ class Recipes extends Component {
               const linkTo = page !== 'ingredient'
                 ? `/${type.toLowerCase()}/${curr[`id${api}`]}` : `/${path}`;
               return (
-                <Link to={ linkTo }>
+                <Link to={ { pathname: linkTo, state: ingredient } }>
                   <div key={ index } data-testid={ `${index}-${page}-card` }>
                     <img
                       src={ src }
@@ -66,9 +68,8 @@ class Recipes extends Component {
   }
 
   render() {
-    const { type, drinkData, foodData } = this.props;
-    const { data: meals } = foodData;
-    const { data: drinks } = drinkData;
+    const { type, drinkData: { data: drinks }, foodData: { data: meals } } = this.props;
+    const { drinkItems, foodItems, exploreDrinks, exploreFood } = recipesProvider;
     if (meals === null || drinks === null) {
       return global
         .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -77,19 +78,17 @@ class Recipes extends Component {
     return (
       <div>
         {type === 'Bebidas' && drinks.length
-          ? this.renderRecipes(drinks, 'Drink', 'recipe')
+          ? this.renderRecipes(drinks, drinkItems)
           : '' }
         {type === 'Comidas' && meals.length
-          ? this.renderRecipes(meals, 'Meal', 'recipe')
+          ? this.renderRecipes(meals, foodItems)
           : '' }
         {type === 'explore-drinks' && drinks.length
           ? this
-            .renderRecipes(drinks,
-              'Ingredient1', 'ingredient', 'thecocktaildb', 'bebidas')
+            .renderRecipes(drinks, exploreDrinks)
           : '' }
         {type === 'explore-ingrediente' && meals.length
-          ? this
-            .renderRecipes(meals, 'Ingredient', 'ingredient', 'themealdb', 'comidas')
+          ? this.renderRecipes(meals, exploreFood)
           : '' }
       </div>
     );
