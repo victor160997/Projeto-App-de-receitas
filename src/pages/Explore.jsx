@@ -8,11 +8,11 @@ class Explore extends Component {
     return (
       <div>
         <HeaderExplore titlePage="Explorar" />
-        <Link to="/explorar/comidas">
-          <h3>Explorar Comidas</h3>
+        <Link to="/explorar/comidas" data-testid="explore-food">
+          Explorar Comidas
         </Link>
-        <Link to="/explorar/bebidas">
-          <h3>Explorar Bebidas</h3>
+        <Link to="/explorar/bebidas" data-testid="explore-drinks">
+          Explorar Bebidas
         </Link>
         <Footer />
       </div>
