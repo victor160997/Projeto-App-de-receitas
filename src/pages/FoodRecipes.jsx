@@ -15,6 +15,10 @@ class FoodRecipes extends Component {
 
   componentDidMount() {
     const { fetchFood } = this.props;
+    const storageFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!storageFavorites) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
     return fetchFood('search.php?s=', '');
   }
 
