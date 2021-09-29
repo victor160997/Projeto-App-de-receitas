@@ -18,7 +18,7 @@ export default class ExploreFood extends Component {
   }
 
   async surpriseButton() {
-    const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
     const data = await response.json();
     const newId = await data.meals[0].idMeal;
     this.setState(({
@@ -40,7 +40,7 @@ export default class ExploreFood extends Component {
         <Link to="/explorar/comidas/area" data-testid="explore-by-area">
           Por Local de Origem
         </Link>
-        <Link to={`/comidas/${id}`} data-testid="explore-surprise">
+        <Link to={ `/comidas/${id}` } data-testid="explore-surprise">
           Me Surpreenda!
         </Link>
         <Footer />
