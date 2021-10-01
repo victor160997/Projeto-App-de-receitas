@@ -68,7 +68,9 @@ class Recipes extends Component {
   }
 
   render() {
-    const { type, drinkData: { data: drinks }, foodData: { data: meals } } = this.props;
+    const { type, drinkData, foodData } = this.props;
+    const { data: meals, foodIngredients } = foodData;
+    const { data: drinks, drinksIngredients } = drinkData;
     const { drinkItems, foodItems, exploreDrinks, exploreFood } = recipesProvider;
     if (meals === null || drinks === null) {
       return global
@@ -83,12 +85,12 @@ class Recipes extends Component {
         {type === 'Comidas' && meals.length
           ? this.renderRecipes(meals, foodItems)
           : '' }
-        {type === 'explore-drinks' && drinks.length
+        {type === 'explore-drinks' && drinksIngredients.length
           ? this
-            .renderRecipes(drinks, exploreDrinks)
+            .renderRecipes(drinksIngredients, exploreDrinks)
           : '' }
-        {type === 'explore-ingrediente' && meals.length
-          ? this.renderRecipes(meals, exploreFood)
+        {type === 'explore-food' && foodIngredients.length
+          ? this.renderRecipes(foodIngredients, exploreFood)
           : '' }
       </div>
     );

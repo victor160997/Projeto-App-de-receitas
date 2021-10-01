@@ -7,27 +7,16 @@ import { fetchFoodApi } from '../redux/actions';
 import Recipes from '../components/Recipes';
 
 class ExploreFoodIngredientes extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     ingredient: '',
-  //   };
-  // }
-
-  // handleClick() {
-
-  // }
-
   componentDidMount() {
     const { fetchFood } = this.props;
-    fetchFood('list.php?i=list', '');
+    fetchFood('list.php?i=', 'list');
   }
 
   render() {
     return (
       <div>
-        <HeaderExplore titlePage="Explorar Ingredientes" />
-        <Recipes type="explore-ingrediente" />
+        <HeaderExplore titlePage="Explorar Ingredientes" explore />
+        <Recipes type="explore-food" />
         <Footer />
       </div>
     );
