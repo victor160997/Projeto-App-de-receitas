@@ -71,11 +71,13 @@ export function renderIgredients(recipe, progress) {
   });
   if (progress) {
     return arrayVazio.map((igr, index) => (
-      <label htmlFor={ igr } key={ igr }>
-        <input type="checkbox" data-testid={ `${index}-ingredient-step` } key={ igr } />
-        { igr }
-        -
-        { recipe[`strMeasure${index + 1}`] }
+      <label htmlFor={ igr } key={ igr } data-testid={ `${index}ingredient-step` }>
+        <li>
+          <input type="checkbox" />
+          { igr }
+          -
+          { recipe[`strMeasure${index + 1}`] }
+        </li>
       </label>
     ));
   }
