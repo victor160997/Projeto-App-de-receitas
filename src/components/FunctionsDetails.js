@@ -59,7 +59,7 @@ export function renderVideo(path, recipe) {
   return undefined;
 }
 
-export function renderIgredients(recipe) {
+export function renderIgredients(recipe, progress, checkIngredients, handleIngredients) {
   const array = Object.keys(recipe);
   const arrayVazio = [];
   array.map((key) => {
@@ -69,6 +69,25 @@ export function renderIgredients(recipe) {
     }
     return undefined;
   });
+  if (progress) {
+    return arrayVazio.map((igr, index) => (
+      <label htmlFor={ igr } key={ igr } data-testid={ `${index}-ingredient-step` }>
+        <li>
+          <input
+            type="checkbox"
+            id={ `${index}ingredient-step` }
+            className="ingredient-step-list"
+            value={ checkIngredients[`value${index}`] }
+            onChange={ (e) => handleIngredients(index, e.target) }
+            checked={ checkIngredients[`value${index}`] }
+          />
+          { igr }
+          -
+          { recipe[`strMeasure${index + 1}`] }
+        </li>
+      </label>
+    ));
+  }
   return arrayVazio.map((igr, index) => (
     <li
       data-testid={ `${index}-ingredient-name-and-measure` }
@@ -81,23 +100,14 @@ export function renderIgredients(recipe) {
   ));
 }
 
-export function clearButton() {
-  const { recipe } = this.state;
-  const { adcMadeFood, adcMadeDrink } = this.props;
-  if (recipe.idMeal) {
-    adcMadeFood(recipe.idMeal);
-    const storage = JSON.parse(localStorage.getItem('madeFood'));
-    const array = [...storage, recipe.idMeal];
-    localStorage.setItem('madeFood', JSON.stringify(array));
-  } else {
-    adcMadeDrink(recipe.idDrink);
-    const storage = JSON.parse(localStorage.getItem('madeDrink'));
-    const array = [...storage, recipe.idDrink];
-    localStorage.setItem('madeDrink', JSON.stringify(array));
-  }
+export function redirectInProgress(recipe) {
+  localStorage.setItem('inProgressRecipes', JSON.stringify({
+    recipe,
+    value: {},
+  }));
 }
 
-export function renderButton(/* id, storageDrink, storageFood */) {
+export function renderButton(recipe/* id, storageDrink, storageFood */) {
   /* if (storageDrink.includes(id) || storageFood.includes(id)) {
     return undefined;
   } */
@@ -106,7 +116,7 @@ export function renderButton(/* id, storageDrink, storageFood */) {
       type="button"
       data-testid="start-recipe-btn"
       className="button-iniciar"
-      /* onClick={ clearButton } */
+      onClick={ () => redirectInProgress(recipe) }
       id="button-details-child"
     >
       Iniciar Receita
@@ -163,3 +173,18 @@ export function removeFavorite(recipe) {
     localStorage.setItem('favoriteRecipes', JSON.stringify(array));
   }
 }
+
+/* const { recipe } = this.state;
+  const { adcMadeFood, adcMadeDrink } = this.props;
+  if (recipe.idMeal) {
+    adcMadeFood(recipe.idMeal);
+    const storage = JSON.parse(localStorage.getItem('madeFood'));
+    const array = [...storage, recipe.idMeal];
+    localStorage.setItem('madeFood', JSON.stringify(array));
+  } else {
+    adcMadeDrink(recipe.idDrink);
+    const storage = JSON.parse(localStorage.getItem('madeDrink'));
+    const array = [...storage, recipe.idDrink];
+    localStorage.setItem('madeDrink', JSON.stringify(array));
+  }
+ */
