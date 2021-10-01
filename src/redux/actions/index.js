@@ -7,6 +7,7 @@ const actions = {
   SET_FOOD_DATA: 'SET_FOOD_DATA',
   SET_FOOD_INGREDIENTS: 'SET_FOOD_INGREDIENTS',
   SET_DRINKS_INGREDIENTS: 'SET_DRINKS_INGREDIENTS',
+  SET_FOOD_AREA: 'SET_FOOD_AREA',
   FAILED_REQUEST: 'FAILED_REQUEST',
   FILTER_FOOD: 'FILTER_FOOD',
   FILTER_DRINK: 'FILTER_DRINK',
@@ -46,6 +47,10 @@ export const requestFoodIngredients = (payload) => ({
   type: actions.SET_FOOD_INGREDIENTS, payload,
 });
 
+export const requestFoodArea = (payload) => ({
+  type: actions.SET_FOOD_AREA, payload,
+});
+
 export const requestDrinksIngredients = (payload) => ({
   type: actions.SET_DRINKS_INGREDIENTS, payload,
 });
@@ -64,6 +69,8 @@ export const fetchFoodApi = (payload1, payload2) => async (dispatch) => {
     const { meals } = await getFoodApi(payload1, payload2);
     if (payload1 === 'list.php?i=') {
       dispatch(requestFoodIngredients(meals));
+    } else if (payload1 === 'list.php?a=') {
+      dispatch(requestFoodArea(meals));
     } else {
       dispatch(requestFoodApi(meals));
     }
