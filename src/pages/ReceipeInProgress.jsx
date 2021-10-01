@@ -43,21 +43,73 @@ class ReceipeInProgress extends Component {
       recipe: '',
       sharedLink: false,
       favorite: false,
+      checkIngredients: '',
     };
 
     this.shareRecipe = this.shareRecipe.bind(this);
+    this.handleIngredients = this.handleIngredients.bind(this);
   }
 
   componentDidMount() {
+    const storageProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const storageFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const { match: { params: { id } } } = this.props;
     this.getRecipe(id);
+    if (storageProgress) {
+      this.setCheks(storageProgress.value);
+    }
     if (storageFavorites) {
       this.setFavorite(id);
-    } else {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({}));
+    }
+    if (!storageFavorites) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
       this.setTeste();
     }
+  }
+
+  componentDidUpdate(s, p) {
+    const { recipe, checkIngredients } = this.state;
+    const tam = document.querySelectorAll('.ingredient-step-list');
+    const storageProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    /* console.log(tam); */
+    let value = {};
+    /* if (recipe !== '' && checkIngredients === '' && storageProgress) {
+      console.log(storageProgress);
+    } */
+    if (recipe !== '' && checkIngredients === '' && !storageProgress) {
+      tam.forEach((t, i) => {
+        value = {
+          ...value,
+          [`value${i}`]: false,
+        };
+      });
+      this.setCheks(value);
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        recipe,
+        value,
+      }));
+    }
+    if (p.checkIngredients !== checkIngredients) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        recipe,
+        value: checkIngredients,
+      }));
+    }
+  }
+
+  handleIngredients(index, target) {
+    this.setState((prevState) => ({
+      checkIngredients: {
+        ...prevState.checkIngredients,
+        [`value${index}`]: target.checked,
+      },
+    }));
+  }
+
+  setCheks(value) {
+    this.setState({
+      checkIngredients: value,
+    });
   }
 
   async getRecipe(id) {
@@ -85,9 +137,8 @@ class ReceipeInProgress extends Component {
   }
 
   render() {
-    const { recipe, sharedLink, favorite } = this.state;
+    const { recipe, sharedLink, favorite, checkIngredients } = this.state;
     const { match: { path, params: { id } } /* location: { pathname } */ } = this.props;
-    console.log(recipe);
     return (
       <div>
         { recipe && <img
@@ -140,7 +191,8 @@ class ReceipeInProgress extends Component {
         <div>
           <h2>Igredients</h2>
           <ul>
-            { renderIgredients(recipe, 'progress') }
+            { renderIgredients(recipe, 'progress', checkIngredients,
+              this.handleIngredients) }
           </ul>
         </div>
         <div>

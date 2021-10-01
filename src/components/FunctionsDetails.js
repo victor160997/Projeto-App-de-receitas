@@ -59,7 +59,7 @@ export function renderVideo(path, recipe) {
   return undefined;
 }
 
-export function renderIgredients(recipe, progress) {
+export function renderIgredients(recipe, progress, checkIngredients, handleIngredients) {
   const array = Object.keys(recipe);
   const arrayVazio = [];
   array.map((key) => {
@@ -71,9 +71,16 @@ export function renderIgredients(recipe, progress) {
   });
   if (progress) {
     return arrayVazio.map((igr, index) => (
-      <label htmlFor={ igr } key={ igr } data-testid={ `${index}ingredient-step` }>
+      <label htmlFor={ igr } key={ igr } data-testid={ `${index}-ingredient-step` }>
         <li>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            id={ `${index}ingredient-step` }
+            className="ingredient-step-list"
+            value={ checkIngredients[`value${index}`] }
+            onChange={ (e) => handleIngredients(index, e.target) }
+            checked={ checkIngredients[`value${index}`] }
+          />
           { igr }
           -
           { recipe[`strMeasure${index + 1}`] }
@@ -94,7 +101,10 @@ export function renderIgredients(recipe, progress) {
 }
 
 export function redirectInProgress(recipe) {
-  localStorage.setItem('inProgressRecipes', JSON.stringify(recipe));
+  localStorage.setItem('inProgressRecipes', JSON.stringify({
+    recipe,
+    value: {},
+  }));
 }
 
 export function renderButton(recipe/* id, storageDrink, storageFood */) {
