@@ -60,7 +60,6 @@ export function renderVideo(path, recipe) {
 }
 
 export function renderIgredients(recipe, progress) {
-  console.log(recipe);
   const array = Object.keys(recipe);
   const arrayVazio = [];
   array.map((key) => {
@@ -72,14 +71,12 @@ export function renderIgredients(recipe, progress) {
   });
   if (progress) {
     return arrayVazio.map((igr, index) => (
-      <li key={ igr }>
-        <label htmlFor={ igr } key={ igr }>
-          <input type="checkbox" data-testid={ `${index}-ingredient-step` } key={ igr } />
-          { igr }
-          -
-          { recipe[`strMeasure${index + 1}`] }
-        </label>
-      </li>
+      <label htmlFor={ igr } key={ igr }>
+        <input type="checkbox" data-testid={ `${index}-ingredient-step` } key={ igr } />
+        { igr }
+        -
+        { recipe[`strMeasure${index + 1}`] }
+      </label>
     ));
   }
   return arrayVazio.map((igr, index) => (
