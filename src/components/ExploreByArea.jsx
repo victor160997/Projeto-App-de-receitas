@@ -10,16 +10,15 @@ class ExploreByArea extends Component {
       <div>
         <select onChange={ handleChange } data-testid="explore-by-area-dropdown">
           <option value="All" data-testid="All-option">All</option>
-          { foodData.map(({ strArea }, index) => {
-            return (
-              <option
-                key={ index }
-                value={ strArea }
-                data-testid={ `${strArea}-option` }
-              >
-                { strArea }
-              </option>);
-          })}
+          { foodData.map(({ strArea }, index) => (
+            <option
+              key={ index }
+              value={ strArea }
+              data-testid={ `${strArea}-option` }
+            >
+              { strArea }
+            </option>
+          ))}
         </select>
         <Footer />
       </div>
