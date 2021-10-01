@@ -14,12 +14,16 @@ class DrinkRecipes extends Component {
   }
 
   componentDidMount() {
-    const { fetchDrink } = this.props;
+    const { fetchDrink, location: { state } } = this.props;
     const storageFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (!storageFavorites) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
-    return fetchDrink('search.php?s=', '');
+    if (state) {
+      fetchDrink('filter.php?i=', state);
+    } else {
+      fetchDrink('search.php?s=', '');
+    }
   }
 
   redirectDetailsDrink(id) {
@@ -30,7 +34,6 @@ class DrinkRecipes extends Component {
   render() {
     const { fetchDrink } = this.props;
     const Bebidas = 'Bebidas';
-    // const Drink = 'Drink';
     return (
       <div>
         <Header titlePage={ Bebidas } fetchApi={ fetchDrink } />
@@ -45,6 +48,7 @@ class DrinkRecipes extends Component {
 DrinkRecipes.propTypes = {
   fetchDrink: PropTypes.func.isRequired,
   history: PropTypes.string.isRequired,
+  location: PropTypes.objectOf(PropTypes.node).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

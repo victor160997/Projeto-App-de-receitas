@@ -15,8 +15,8 @@ class ExploreFoodIngredientes extends Component {
   render() {
     return (
       <div>
-        <HeaderExplore titlePage="Explorar Ingredientes" />
-        <Recipes type="explore-ingrediente" />
+        <HeaderExplore titlePage="Explorar Ingredientes" explore />
+        <Recipes type="explore-food" />
         <Footer />
       </div>
     );

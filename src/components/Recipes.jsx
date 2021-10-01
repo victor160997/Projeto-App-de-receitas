@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import recipesProvider from '../helper/recipesProvider';
 
 class Recipes extends Component {
   constructor() {
@@ -26,7 +27,8 @@ class Recipes extends Component {
     return undefined;
   }
 
-  renderRecipes(data, api, page, endpoint) {
+  renderRecipes(data, items) {
+    const { api, page, endpoint, path } = items;
     this.redirectDetails(api, data);
     const { type } = this.props;
     const limitImgs = 12;
@@ -37,12 +39,15 @@ class Recipes extends Component {
             if (index < limitImgs) {
               const ingredientsURL = `https://www.${endpoint}.com/images/ingredients/`;
               const key = `str${api}`;
+              const ingredient = curr[key];
               const src = page !== 'ingredient'
                 ? curr[`str${api}Thumb`]
-                : `${ingredientsURL}${curr[key].split(' ')
+                : `${ingredientsURL}${ingredient.split(' ')
                   .join(' ')}-Small.png`;
+              const linkTo = page !== 'ingredient'
+                ? `/${type.toLowerCase()}/${curr[`id${api}`]}` : `/${path}`;
               return (
-                <Link to={ `/${type.toLowerCase()}/${curr[`id${api}`]}` }>
+                <Link to={ { pathname: linkTo, state: ingredient } }>
                   <div key={ index } data-testid={ `${index}-${page}-card` }>
                     <img
                       src={ src }
@@ -64,9 +69,10 @@ class Recipes extends Component {
 
   render() {
     const { type, drinkData, foodData } = this.props;
-    const { data } = foodData;
-    const { data: drinks } = drinkData;
-    if (data === null || drinks === null) {
+    const { data: meals, foodIngredients } = foodData;
+    const { data: drinks, drinksIngredients } = drinkData;
+    const { drinkItems, foodItems, exploreDrinks, exploreFood } = recipesProvider;
+    if (meals === null || drinks === null) {
       return global
         .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
@@ -74,18 +80,17 @@ class Recipes extends Component {
     return (
       <div>
         {type === 'Bebidas' && drinks.length
-          ? this.renderRecipes(drinks, 'Drink', 'recipe')
+          ? this.renderRecipes(drinks, drinkItems)
           : '' }
-        {type === 'Comidas' && data.length
-          ? this.renderRecipes(data, 'Meal', 'recipe')
+        {type === 'Comidas' && meals.length
+          ? this.renderRecipes(meals, foodItems)
           : '' }
-        {type === 'explore-drinks' && drinks.length
+        {type === 'explore-drinks' && drinksIngredients.length
           ? this
-            .renderRecipes(drinks, 'Ingredient1', 'ingredient', 'thecocktaildb')
+            .renderRecipes(drinksIngredients, exploreDrinks)
           : '' }
-        {type === 'explore-ingrediente' && data.length
-          ? this
-            .renderRecipes(data, 'Ingredient', 'ingredient', 'themealdb')
+        {type === 'explore-food' && foodIngredients.length
+          ? this.renderRecipes(foodIngredients, exploreFood)
           : '' }
       </div>
     );

@@ -32,7 +32,6 @@ export async function getDrinksApi(type, drink) {
     const data = await response.json();
     return data;
   }
-  // console.log(`${drinkURL}${type}${drink}`);
   const response = await fetch(`${drinkURL}${type}${drink}`);
   const data = await response.json();
   return data;
