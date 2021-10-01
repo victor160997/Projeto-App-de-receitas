@@ -9,6 +9,7 @@ class ExploreByArea extends Component {
     return (
       <div>
         <select onChange={ handleChange } data-testid="explore-by-area-dropdown">
+          <option value="All" data-testid="All-option">All</option>
           { foodData.map(({ strArea }, index) => {
             return (
               <option
