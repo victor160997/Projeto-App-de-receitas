@@ -199,6 +199,16 @@ export function didUpDateRecipesInProgress(p, recipe, checkIngredients, setCheks
   }
 }
 
+export function checkIngredientsToButton(checkIngredients) {
+  const tam = document.querySelectorAll('.ingredient-step-list').length;
+  const ingredientsOk = Object.values(checkIngredients);
+  const verica = ingredientsOk.every((value) => value === true);
+  if (verica === true && ingredientsOk.length === tam) {
+    return false;
+  }
+  return true;
+}
+
 /* const { recipe } = this.state;
   const { adcMadeFood, adcMadeDrink } = this.props;
   if (recipe.idMeal) {

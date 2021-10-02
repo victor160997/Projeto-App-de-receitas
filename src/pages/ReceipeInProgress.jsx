@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { confereFavorite,
+import { confereFavorite, checkIngredientsToButton,
   adcFavorite, renderCategory, renderIgredients, removeFavorite }
   from '../components/FunctionsDetails';
 import shareIcon from '../images/shareIcon.svg';
@@ -166,6 +166,7 @@ class ReceipeInProgress extends Component {
           data-testid="finish-recipe-btn"
           className="button-iniciar"
           id="button-details-child"
+          disabled={ checkIngredientsToButton(checkIngredients) }
         >
           Finalizar receita
         </button>
