@@ -139,10 +139,10 @@ export function adcFavorite(recipe) {
   if (recipe.idMeal) {
     const objRecipe = {
       id: recipe.idMeal,
-      type: 'comidas',
+      type: 'comida',
       area: recipe.strArea,
       category: recipe.strCategory,
-      alcoholicOrNot: 'not',
+      alcoholicOrNot: '',
       name: recipe.strMeal,
       image: recipe.strMealThumb,
     };
@@ -151,7 +151,7 @@ export function adcFavorite(recipe) {
   } else {
     const objRecipe = {
       id: recipe.idDrink,
-      type: 'bebidas',
+      type: 'bebida',
       area: '',
       category: recipe.strCategory,
       alcoholicOrNot: recipe.strAlcoholic,
@@ -171,6 +171,31 @@ export function removeFavorite(recipe) {
   } else {
     const array = storageFavorites.filter((rec) => rec.id !== recipe.idDrink);
     localStorage.setItem('favoriteRecipes', JSON.stringify(array));
+  }
+}
+
+export function didUpDateRecipesInProgress(p, recipe, checkIngredients, setCheks) {
+  const tam = document.querySelectorAll('.ingredient-step-list');
+  const storageProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  let value = {};
+  if (recipe !== '' && checkIngredients === '' && !storageProgress) {
+    tam.forEach((t, i) => {
+      value = {
+        ...value,
+        [`value${i}`]: false,
+      };
+    });
+    setCheks(value);
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      recipe,
+      value,
+    }));
+  }
+  if (p.checkIngredients !== checkIngredients) {
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      recipe,
+      value: checkIngredients,
+    }));
   }
 }
 
