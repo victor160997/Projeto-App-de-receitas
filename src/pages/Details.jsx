@@ -158,9 +158,6 @@ class Details extends Component {
         <div id="button-details">
           <div id="button-details-child">
             <Link to={ `${pathname}/in-progress` }>
-              {/* { storageDrink && storageFood
-                ? this.renderButton(id, storageDrink, storageFood)
-                : <span>loading</span> } */}
               { renderButton(recipe) }
             </Link>
           </div>
@@ -171,8 +168,6 @@ class Details extends Component {
 }
 
 Details.propTypes = {
-  /* adcMadeDrink: PropTypes.func.isRequired,
-  adcMadeFood: PropTypes.func.isRequired, */
   match: PropTypes.objectOf({
     params: PropTypes.objectOf(PropTypes.string),
     path: PropTypes.string,

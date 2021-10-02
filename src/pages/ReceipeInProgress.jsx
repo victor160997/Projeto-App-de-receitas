@@ -1,34 +1,6 @@
-/* import React, { Component } from 'react';
-
-export default class ReceipeInProgress extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      recipe: '',
-    };
-  }
-
-  componentDidMount() {
-    const storageInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    this.setRecipe(storageInProgress);
-  }
-
-  setRecipe(recipe) {
-    this.setState({ recipe });
-  }
-
-  render() {
-    return (
-      <div>
-        receita em progresso.
-      </div>
-    );
-  }
-} */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { confereFavorite,
+import { confereFavorite, checkIngredientsToButton,
   adcFavorite, renderCategory, renderIgredients, removeFavorite }
   from '../components/FunctionsDetails';
 import shareIcon from '../images/shareIcon.svg';
@@ -71,11 +43,7 @@ class ReceipeInProgress extends Component {
     const { recipe, checkIngredients } = this.state;
     const tam = document.querySelectorAll('.ingredient-step-list');
     const storageProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    /* console.log(tam); */
     let value = {};
-    /* if (recipe !== '' && checkIngredients === '' && storageProgress) {
-      console.log(storageProgress);
-    } */
     if (recipe !== '' && checkIngredients === '' && !storageProgress) {
       tam.forEach((t, i) => {
         value = {
@@ -141,18 +109,12 @@ class ReceipeInProgress extends Component {
     const { match: { path, params: { id } } /* location: { pathname } */ } = this.props;
     return (
       <div>
-        { recipe && <img
+        <img
           data-testid="recipe-photo"
           src={ recipe.strMealThumb ? recipe.strMealThumb : recipe.strDrinkThumb }
           alt={ recipe.strMeal ? recipe.strMeal : recipe.strDrink }
           width="300vw"
-        /> }
-        {/* <img
-          data-testid="recipe-photo"
-          src={ recipe.strMealThumb ? recipe.strMealThumb : recipe.strDrinkThumb }
-          alt={ recipe.strMeal ? recipe.strMeal : recipe.strDrink }
-          width="300vw"
-        /> */}
+        />
         <h1 data-testid="recipe-title">
           { recipe.strMeal ? recipe.strMeal : recipe.strDrink }
         </h1>
@@ -204,6 +166,7 @@ class ReceipeInProgress extends Component {
           data-testid="finish-recipe-btn"
           className="button-iniciar"
           id="button-details-child"
+          disabled={ checkIngredientsToButton(checkIngredients) }
         >
           Finalizar receita
         </button>
