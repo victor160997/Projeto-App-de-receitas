@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { confereFavorite, checkIngredientsToButton,
+import { confereFavorite, checkIngredientsToButton, redirectToMadeRecipes,
   adcFavorite, renderCategory, renderIgredients, removeFavorite }
   from '../components/FunctionsDetails';
 import shareIcon from '../images/shareIcon.svg';
@@ -106,7 +106,7 @@ class ReceipeInProgress extends Component {
 
   render() {
     const { recipe, sharedLink, favorite, checkIngredients } = this.state;
-    const { match: { path, params: { id } } /* location: { pathname } */ } = this.props;
+    const { match: { path, params: { id } }, history } = this.props;
     return (
       <div>
         <img
@@ -122,7 +122,7 @@ class ReceipeInProgress extends Component {
           <input
             type="url"
             id="link-to-share-progress"
-            value={ window.location.href }
+            value={ window.location.href.replace('/in-progress', '') }
           />
         </div>
         <button
@@ -167,6 +167,7 @@ class ReceipeInProgress extends Component {
           className="button-iniciar"
           id="button-details-child"
           disabled={ checkIngredientsToButton(checkIngredients) }
+          onClick={ () => redirectToMadeRecipes(history) }
         >
           Finalizar receita
         </button>
@@ -182,4 +183,5 @@ ReceipeInProgress.propTypes = {
     params: PropTypes.objectOf(PropTypes.string),
     path: PropTypes.string,
   }).isRequired,
+  history: PropTypes.objectOf(PropTypes.string).isRequired,
 };

@@ -202,11 +202,15 @@ export function didUpDateRecipesInProgress(p, recipe, checkIngredients, setCheks
 export function checkIngredientsToButton(checkIngredients) {
   const tam = document.querySelectorAll('.ingredient-step-list').length;
   const ingredientsOk = Object.values(checkIngredients);
-  const verica = ingredientsOk.every((value) => value === true);
-  if (verica === true && ingredientsOk.length === tam) {
+  const verifica = ingredientsOk.every((value) => value === true);
+  if (verifica === true && ingredientsOk.length === tam && ingredientsOk.length !== 0) {
     return false;
   }
   return true;
+}
+
+export function redirectToMadeRecipes(history) {
+  history.push('/receitas-feitas');
 }
 
 /* const { recipe } = this.state;
