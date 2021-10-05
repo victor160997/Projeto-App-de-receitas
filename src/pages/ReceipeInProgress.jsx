@@ -25,6 +25,7 @@ class ReceipeInProgress extends Component {
   componentDidMount() {
     const storageProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const storageFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const storageMade = JSON.parse(localStorage.getItem('doneRecipes'));
     const { match: { params: { id } } } = this.props;
     this.getRecipe(id);
     if (storageProgress) {
@@ -36,6 +37,9 @@ class ReceipeInProgress extends Component {
     if (!storageFavorites) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
       this.setTeste();
+    }
+    if (!storageMade) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
     }
   }
 
@@ -57,7 +61,7 @@ class ReceipeInProgress extends Component {
         value,
       }));
     }
-    if (p.checkIngredients !== checkIngredients) {
+    if (recipe !== '' && p.checkIngredients !== checkIngredients) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
         recipe,
         value: checkIngredients,
@@ -167,7 +171,7 @@ class ReceipeInProgress extends Component {
           className="button-iniciar"
           id="button-details-child"
           disabled={ checkIngredientsToButton(checkIngredients) }
-          onClick={ () => redirectToMadeRecipes(history) }
+          onClick={ () => redirectToMadeRecipes(history, recipe) }
         >
           Finalizar receita
         </button>

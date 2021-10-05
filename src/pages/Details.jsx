@@ -6,9 +6,10 @@ import {
   adcMadeRecipesFood as madeFoodAction,
   adcMadeRecipesDrink as madeDrinkAction,
 } from '../redux/actions';
+import { renderButton } from '../components/RenderButtonDetails';
 
 import { getDrinksApi, getFoodApi } from '../services';
-import { renderRecomendation, /* clearButton, */ renderButton, confereFavorite,
+import { renderRecomendation, confereFavorite,
   adcFavorite, renderCategory, renderVideo, renderIgredients, removeFavorite }
   from '../components/FunctionsDetails';
 import './details.css';
@@ -95,8 +96,6 @@ class Details extends Component {
   render() {
     const { match: { path, params: { id } }, location: { pathname } } = this.props;
     const { recipe, recomendation, sharedLink, favorite } = this.state;
-    /* const storageDrink = JSON.parse(localStorage.getItem('madeDrink'));
-    const storageFood = JSON.parse(localStorage.getItem('madeFood')); */
     return (
       <div className="body-details">
         <img
