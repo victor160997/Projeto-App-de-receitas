@@ -1,4 +1,5 @@
 import React from 'react';
+import { renderData } from './RenderButtonDetails';
 
 export function renderRecomendation(recomendation, path) {
   const six = 6;
@@ -100,35 +101,6 @@ export function renderIgredients(recipe, progress, checkIngredients, handleIngre
   ));
 }
 
-export function redirectInProgress(recipe) {
-  localStorage.setItem('inProgressRecipes', JSON.stringify({
-    recipe,
-    value: {},
-  }));
-}
-
-export function renderButton(recipe/* id, storageDrink, storageFood */) {
-  /* if (storageDrink.includes(id) || storageFood.includes(id)) {
-    return undefined;
-  } */
-  return (
-    <button
-      type="button"
-      data-testid="start-recipe-btn"
-      className="button-iniciar"
-      onClick={ () => redirectInProgress(recipe) }
-      id="button-details-child"
-    >
-      Iniciar Receita
-    </button>
-  );
-}
-/*
-export function shareRecipe() {
-  document.querySelector('.link-to-share').select();
-  document.execCommand('copy');
-} */
-
 export function confereFavorite(id) {
   const storageFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
   return storageFavorites.some((rec) => rec.id === id);
@@ -202,28 +174,45 @@ export function didUpDateRecipesInProgress(p, recipe, checkIngredients, setCheks
 export function checkIngredientsToButton(checkIngredients) {
   const tam = document.querySelectorAll('.ingredient-step-list').length;
   const ingredientsOk = Object.values(checkIngredients);
-  const verifica = ingredientsOk.every((value) => value === true);
-  if (verifica === true && ingredientsOk.length === tam && ingredientsOk.length !== 0) {
+  const verica = ingredientsOk.every((value) => value === true);
+  if (verica === true && ingredientsOk.length === tam) {
     return false;
   }
   return true;
 }
 
-export function redirectToMadeRecipes(history) {
+export function redirectToMadeRecipes(history, recipe) {
+  const storageMade = JSON.parse(localStorage.getItem('doneRecipes'));
+  const { idMeal, idDrink } = recipe;
+  if (idMeal) {
+    const recipeMade = {
+      id: idMeal,
+      type: 'comida',
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+      doneDate: renderData(),
+      tags: recipe.strTags ? recipe.strTags.split(', ') : '',
+    };
+    localStorage.setItem('doneRecipes', JSON.stringify([...storageMade, recipeMade]));
+    localStorage.setItem('inProgressRecipes', JSON.stringify({}));
+  }
+  if (idDrink) {
+    const recipeMade = {
+      id: idDrink,
+      type: 'bebida',
+      area: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+      doneDate: renderData(),
+      tags: recipe.strTags ? recipe.strTags.split(', ') : '',
+    };
+    localStorage.setItem('doneRecipes', JSON.stringify([...storageMade, recipeMade]));
+    localStorage.setItem('inProgressRecipes', JSON.stringify({}));
+  }
   history.push('/receitas-feitas');
 }
-
-/* const { recipe } = this.state;
-  const { adcMadeFood, adcMadeDrink } = this.props;
-  if (recipe.idMeal) {
-    adcMadeFood(recipe.idMeal);
-    const storage = JSON.parse(localStorage.getItem('madeFood'));
-    const array = [...storage, recipe.idMeal];
-    localStorage.setItem('madeFood', JSON.stringify(array));
-  } else {
-    adcMadeDrink(recipe.idDrink);
-    const storage = JSON.parse(localStorage.getItem('madeDrink'));
-    const array = [...storage, recipe.idDrink];
-    localStorage.setItem('madeDrink', JSON.stringify(array));
-  }
- */
