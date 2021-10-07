@@ -1,1 +1,1 @@
-oioi
+Projeto App de receitas!
