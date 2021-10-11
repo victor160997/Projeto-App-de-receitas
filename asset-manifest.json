@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/Projeto-App-de-receitas/static/css/main.5aff678c.chunk.css",
+    "main.js": "/Projeto-App-de-receitas/static/js/main.4dda2550.chunk.js",
+    "main.js.map": "/Projeto-App-de-receitas/static/js/main.4dda2550.chunk.js.map",
+    "runtime-main.js": "/Projeto-App-de-receitas/static/js/runtime-main.e2fa595f.js",
+    "runtime-main.js.map": "/Projeto-App-de-receitas/static/js/runtime-main.e2fa595f.js.map",
+    "static/js/2.7e5e763d.chunk.js": "/Projeto-App-de-receitas/static/js/2.7e5e763d.chunk.js",
+    "static/js/2.7e5e763d.chunk.js.map": "/Projeto-App-de-receitas/static/js/2.7e5e763d.chunk.js.map",
+    "index.html": "/Projeto-App-de-receitas/index.html",
+    "precache-manifest.116a0d043302ba97e30d66be64236cb5.js": "/Projeto-App-de-receitas/precache-manifest.116a0d043302ba97e30d66be64236cb5.js",
+    "service-worker.js": "/Projeto-App-de-receitas/service-worker.js",
+    "static/css/main.5aff678c.chunk.css.map": "/Projeto-App-de-receitas/static/css/main.5aff678c.chunk.css.map",
+    "static/js/2.7e5e763d.chunk.js.LICENSE.txt": "/Projeto-App-de-receitas/static/js/2.7e5e763d.chunk.js.LICENSE.txt",
+    "static/media/inProgress.css": "/Projeto-App-de-receitas/static/media/back.50c033bc.jpg",
+    "static/media/blackHeartIcon.svg": "/Projeto-App-de-receitas/static/media/blackHeartIcon.b8913346.svg",
+    "static/media/drinkIcon.svg": "/Projeto-App-de-receitas/static/media/drinkIcon.f87c47c3.svg",
+    "static/media/exploreIcon.svg": "/Projeto-App-de-receitas/static/media/exploreIcon.157945ff.svg",
+    "static/media/mealIcon.svg": "/Projeto-App-de-receitas/static/media/mealIcon.b27ba19e.svg",
+    "static/media/profileIcon.svg": "/Projeto-App-de-receitas/static/media/profileIcon.74e487e5.svg",
+    "static/media/searchIcon.svg": "/Projeto-App-de-receitas/static/media/searchIcon.db812135.svg",
+    "static/media/shareIcon.svg": "/Projeto-App-de-receitas/static/media/shareIcon.06215ed4.svg",
+    "static/media/whiteHeartIcon.svg": "/Projeto-App-de-receitas/static/media/whiteHeartIcon.ea3b6ba8.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e2fa595f.js",
+    "static/js/2.7e5e763d.chunk.js",
+    "static/css/main.5aff678c.chunk.css",
+    "static/js/main.4dda2550.chunk.js"
+  ]
+}
