@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/Projeto-App-de-receitas/static/css/main.322997be.chunk.css",
+    "main.css": "/Projeto-App-de-receitas/static/css/main.020712e9.chunk.css",
     "main.js": "/Projeto-App-de-receitas/static/js/main.c2cc734e.chunk.js",
     "main.js.map": "/Projeto-App-de-receitas/static/js/main.c2cc734e.chunk.js.map",
     "runtime-main.js": "/Projeto-App-de-receitas/static/js/runtime-main.e2fa595f.js",
@@ -8,9 +8,9 @@
     "static/js/2.7e5e763d.chunk.js": "/Projeto-App-de-receitas/static/js/2.7e5e763d.chunk.js",
     "static/js/2.7e5e763d.chunk.js.map": "/Projeto-App-de-receitas/static/js/2.7e5e763d.chunk.js.map",
     "index.html": "/Projeto-App-de-receitas/index.html",
-    "precache-manifest.4cbcecd74fde5dd34ab3019bd677b43c.js": "/Projeto-App-de-receitas/precache-manifest.4cbcecd74fde5dd34ab3019bd677b43c.js",
+    "precache-manifest.fff99214b7a3fb7f268d32c5104c92bd.js": "/Projeto-App-de-receitas/precache-manifest.fff99214b7a3fb7f268d32c5104c92bd.js",
     "service-worker.js": "/Projeto-App-de-receitas/service-worker.js",
-    "static/css/main.322997be.chunk.css.map": "/Projeto-App-de-receitas/static/css/main.322997be.chunk.css.map",
+    "static/css/main.020712e9.chunk.css.map": "/Projeto-App-de-receitas/static/css/main.020712e9.chunk.css.map",
     "static/js/2.7e5e763d.chunk.js.LICENSE.txt": "/Projeto-App-de-receitas/static/js/2.7e5e763d.chunk.js.LICENSE.txt",
     "static/media/inProgress.css": "/Projeto-App-de-receitas/static/media/back.50c033bc.jpg",
     "static/media/blackHeartIcon.svg": "/Projeto-App-de-receitas/static/media/blackHeartIcon.b8913346.svg",
@@ -25,7 +25,7 @@
   "entrypoints": [
     "static/js/runtime-main.e2fa595f.js",
     "static/js/2.7e5e763d.chunk.js",
-    "static/css/main.322997be.chunk.css",
+    "static/css/main.020712e9.chunk.css",
     "static/js/main.c2cc734e.chunk.js"
   ]
 }
