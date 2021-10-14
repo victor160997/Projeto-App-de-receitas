@@ -7,6 +7,7 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { getDrinksApi, getFoodApi } from '../services';
+import './inProgress.css';
 
 class ReceipeInProgress extends Component {
   constructor(props) {
@@ -112,56 +113,59 @@ class ReceipeInProgress extends Component {
     const { recipe, sharedLink, favorite, checkIngredients } = this.state;
     const { match: { path, params: { id } }, history } = this.props;
     return (
-      <div>
+      <div className="body-details body-progress">
+        <h1 data-testid="recipe-title" className="recipe-title">
+          { recipe.strMeal ? recipe.strMeal : recipe.strDrink }
+        </h1>
+        { renderCategory(path, recipe) }
         <img
           data-testid="recipe-photo"
+          className="recipe-photo"
           src={ recipe.strMealThumb ? recipe.strMealThumb : recipe.strDrinkThumb }
           alt={ recipe.strMeal ? recipe.strMeal : recipe.strDrink }
           width="300vw"
         />
-        <h1 data-testid="recipe-title">
-          { recipe.strMeal ? recipe.strMeal : recipe.strDrink }
-        </h1>
-        <div className="linkShare">
-          <input
-            type="url"
-            id="link-to-share-progress"
-            value={ window.location.href.replace('/in-progress', '') }
-          />
+        <div className="buttons-detail">
+          <div className="linkShare">
+            <input
+              type="url"
+              id="link-to-share-progress"
+              value={ window.location.href.replace('/in-progress', '') }
+            />
+          </div>
+          <button
+            type="button"
+            onClick={ this.shareRecipe }
+          >
+            <img src={ shareIcon } alt="shareIcon" data-testid="share-btn" />
+          </button>
+          <button
+            type="button"
+            onClick={ () => {
+              if (confereFavorite(id) === true) {
+                removeFavorite(recipe);
+                return this.setState({ favorite: false });
+              }
+              adcFavorite(recipe);
+              return this.setState({ favorite: true });
+            } }
+          >
+            <img
+              src={ favorite ? blackHeartIcon : whiteHeartIcon }
+              alt=""
+              data-testid="favorite-btn"
+            />
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={ this.shareRecipe }
-        >
-          <img src={ shareIcon } alt="shareIcon" data-testid="share-btn" />
-        </button>
-        { sharedLink ? <p>Link copiado!</p> : '' }
-        <button
-          type="button"
-          onClick={ () => {
-            if (confereFavorite(id) === true) {
-              removeFavorite(recipe);
-              return this.setState({ favorite: false });
-            }
-            adcFavorite(recipe);
-            return this.setState({ favorite: true });
-          } }
-        >
-          <img
-            src={ favorite ? blackHeartIcon : whiteHeartIcon }
-            alt=""
-            data-testid="favorite-btn"
-          />
-        </button>
-        { renderCategory(path, recipe) }
-        <div>
+        { sharedLink ? <p className="msg-share">Link copiado!</p> : '' }
+        <div className="ingredients-list">
           <h2>Igredients</h2>
           <ul>
             { renderIgredients(recipe, 'progress', checkIngredients,
               this.handleIngredients) }
           </ul>
         </div>
-        <div>
+        <div className="instructions instructions-progress">
           <h2>Intructions</h2>
           <span data-testid="instructions">{recipe.strInstructions}</span>
         </div>

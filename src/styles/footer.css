@@ -1,10 +1,11 @@
-@media only screen and ( max-width : 360px ) and ( max-height : 640px ) {
+@media only screen and ( min-width : 300px ) and ( max-width : 800px ) {
 
   .footer-menu {
     align-items: center;
-    background-color: #2f4858;
+    background-color: rgba(255, 123, 0);
     bottom: 0;
     display: flex;
+    height: 7vh;
     justify-content: space-around;
     padding: 2px;
     position: fixed;

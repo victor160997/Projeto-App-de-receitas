@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import recipesProvider from '../helper/recipesProvider';
+import './recipes.css';
 
 class Recipes extends Component {
   constructor() {
@@ -33,7 +34,7 @@ class Recipes extends Component {
     const { type } = this.props;
     const limitImgs = 12;
     return (
-      <section>
+      <section className="section-recipes">
         {
           data.map((curr, index) => {
             if (index < limitImgs) {
@@ -47,12 +48,18 @@ class Recipes extends Component {
               const linkTo = page !== 'ingredient'
                 ? `/${type.toLowerCase()}/${curr[`id${api}`]}` : `/${path}`;
               return (
-                <Link to={ { pathname: linkTo, state: ingredient } }>
-                  <div key={ index } data-testid={ `${index}-${page}-card` }>
+                <Link
+                  to={ { pathname: linkTo, state: ingredient } }
+                  className="link"
+                >
+                  <div
+                    key={ index }
+                    data-testid={ `${index}-${page}-card` }
+                    className="body-recipes"
+                  >
                     <img
                       src={ src }
                       data-testid={ `${index}-card-img` }
-                      width="200px"
                       alt="Recipe example"
                     />
                     <span data-testid={ `${index}-card-name` }>{curr[`str${api}`]}</span>

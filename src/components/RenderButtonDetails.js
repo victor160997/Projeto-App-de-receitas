@@ -40,9 +40,7 @@ export function renderButton(recipe) {
   }
   const storageProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (storageProgress
-    && storageProgress.value
     && storageProgress.recipe
-    && storageProgress.value !== ''
     && storageProgress.recipe !== '') {
     const recStorage = storageProgress.recipe.idMeal
       ? storageProgress.recipe.idMeal : storageProgress.recipe.idDrink;

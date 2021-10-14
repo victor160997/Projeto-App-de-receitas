@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Recipes from '../components/Recipes';
 import { fetchFoodApi } from '../redux/actions';
+import './listRecipes.css';
 
 class FoodRecipes extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class FoodRecipes extends Component {
     const Comidas = 'Comidas';
     const { fetchFood } = this.props;
     return (
-      <div>
+      <div className="body-list-recipes">
         <Header titlePage={ Comidas } fetchApi={ fetchFood } />
         <CategoriesButton category="meals" />
         <Recipes type={ Comidas } redirectDetailsFood={ this.redirectDetailsFood } />

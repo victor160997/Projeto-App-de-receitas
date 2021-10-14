@@ -26,7 +26,12 @@ export function renderRecomendation(recomendation, path) {
 export function renderCategory(path, recipe) {
   if (path.includes('/comidas')) {
     return (
-      <h2 data-testid="recipe-category">{recipe.strCategory}</h2>
+      <h2
+        data-testid="recipe-category"
+        className="recipe-category"
+      >
+        {recipe.strCategory}
+      </h2>
     );
   }
   return (
@@ -40,12 +45,11 @@ export function renderCategory(path, recipe) {
 export function renderVideo(path, recipe) {
   if (path.includes('/comidas')) {
     return (
-      <div>
-        <h2>Video</h2>
+      <div className="video-recipe">
         <iframe
           data-testid="video"
-          width="300"
-          height="150"
+          width="100%"
+          height="100%"
           src={ recipe.strYoutube
             ? recipe.strYoutube.replace('watch?v=', 'embed/') : undefined }
           frameBorder="0"
@@ -73,7 +77,7 @@ export function renderIgredients(recipe, progress, checkIngredients, handleIngre
   if (progress) {
     return arrayVazio.map((igr, index) => (
       <label htmlFor={ igr } key={ igr } data-testid={ `${index}-ingredient-step` }>
-        <li>
+        <li className="ingredients-progress">
           <input
             type="checkbox"
             id={ `${index}ingredient-step` }

@@ -1,0 +1,44 @@
+.category-button-body {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 88vw;
+}
+
+.category-button-body button {
+  align-items: center;
+  background-color: rgba(255, 123, 0, 0.9);
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 5px 15px black;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  font-family: verdana;
+  font-size: xx-small;
+  height: 7vh;
+  justify-content: center;
+  letter-spacing: 4px;
+  margin: 10px;
+  overflow: auto;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  transition-duration: 0.4s;
+  width: 23.5vw;
+}
+
+.category-button-body button:hover {
+  box-shadow: 0 2px 10px 5px black;
+  color: black;
+}
+
+.category-button-body button:active:after {
+  opacity: 1;
+  padding: 0;
+  transition: 0s;
+}
+
+.category-button-body button:focus { outline: 0; }

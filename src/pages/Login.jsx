@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import InputCard from '../components/InputCard';
 import { loginValidator } from '../redux/helper';
 import ButtonCard from '../components/ButtonCard';
+import './Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -14,34 +15,38 @@ function Login() {
     localStorage.setItem('mealsToken', 1);
   };
   return (
-    <main className="log-container">
+    <div className="log-container">
+      <h1>Recipes App</h1>
       <div className="none" />
       <form className="form">
-        <h2>Recipes App</h2>
-        <InputCard
-          id="email"
-          name="email"
-          type="text"
-          testId="email-input"
-          onChange={ ({ target: { value } }) => setEmail(value) }
-        />
-        <InputCard
-          id="login"
-          name="login"
-          type="password"
-          testId="password-input"
-          onChange={ ({ target: { value } }) => setPassword(value) }
-        />
-        <ButtonCard
-          page="/comidas"
-          testId="login-submit-btn"
-          buttonText="Entrar"
-          onClick={ handleSubmit }
-          disabled={ !loginValidator({ email, password }) }
-        />
+        <img src="https://a-static.besthdwallpaper.com/itens-de-cozinha-papel-de-parede-2560x1600-3471_7.jpg" alt="cook" />
+        <div className="inputs-group">
+          <InputCard
+            id="email"
+            name="email"
+            type="text"
+            testId="email-input"
+            onChange={ ({ target: { value } }) => setEmail(value) }
+          />
+          <InputCard
+            id="login"
+            name="login"
+            type="password"
+            testId="password-input"
+            onChange={ ({ target: { value } }) => setPassword(value) }
+          />
+          <ButtonCard
+            page="/comidas"
+            testId="login-submit-btn"
+            buttonText="Entrar"
+            onClick={ handleSubmit }
+            disabled={ !loginValidator({ email, password }) }
+            class="action-button"
+          />
+        </div>
       </form>
       <div className="none" />
-    </main>
+    </div>
   );
 }
 export default Login;

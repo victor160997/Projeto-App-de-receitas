@@ -1,0 +1,13 @@
+.body-progress {
+  background-image: url('./back.jpg');
+  background-size: 60vh;
+  color: rgb(58, 58, 58);
+}
+
+.instructions-progress {
+  margin-bottom: 10vh;
+}
+
+.ingredients-progress {
+  list-style-type: none;
+}

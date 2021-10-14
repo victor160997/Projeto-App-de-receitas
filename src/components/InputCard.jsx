@@ -3,16 +3,21 @@ import PropTypes from 'prop-types';
 
 function InputCard({ labelText, id, name, type, onChange, testId }) {
   return (
-    <label htmlFor={ id }>
-      { labelText }
-      <input
-        id={ id }
-        name={ name }
-        type={ type }
-        data-testid={ testId }
-        onChange={ onChange }
-      />
-    </label>
+    <div className="input">
+      <label htmlFor={ id } className="input-label">
+        {/* { name === 'email' ? <span>E-mail</span> : <span>Password</span> } */}
+        { console.log(labelText) }
+        <input
+          id={ id }
+          name={ name }
+          type={ type }
+          data-testid={ testId }
+          onChange={ onChange }
+          className="input-field"
+          placeholder={ name === 'email' ? 'E-mail' : 'Password' }
+        />
+      </label>
+    </div>
   );
 }
 InputCard.defaultProps = {

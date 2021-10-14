@@ -35,7 +35,7 @@ class DrinkRecipes extends Component {
     const { fetchDrink } = this.props;
     const Bebidas = 'Bebidas';
     return (
-      <div>
+      <div className="body-list-recipes">
         <Header titlePage={ Bebidas } fetchApi={ fetchDrink } />
         <CategoriesButton category="drinks" />
         <Recipes type={ Bebidas } redirectDetailsDrink={ this.redirectDetailsDrink } />

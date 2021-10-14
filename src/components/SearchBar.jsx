@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './SearchBar.css';
 
 export default class SearchBar extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ export default class SearchBar extends Component {
     const { searchInput, radioSearch, search } = this.state;
     if (radioSearch === 'search.php?f=' && searchInput.length > 1) {
       global.alert('Sua busca deve conter somente 1 (um) caracter');
+      return undefined;
     }
     if (search === true) {
       fetchApi(radioSearch, searchInput);
@@ -39,9 +41,10 @@ export default class SearchBar extends Component {
   render() {
     const { searchInput } = this.state;
     return (
-      <form>
-        <label htmlFor="search-input">
+      <form className="form-search">
+        <label htmlFor="search-input" className="search-input">
           <input
+            className="theInput"
             type="text"
             data-testid="search-input"
             id="search-input"
@@ -50,8 +53,12 @@ export default class SearchBar extends Component {
             onChange={ this.handleChange }
           />
         </label>
-        <label htmlFor="ingredient-search-radio">
+        <label
+          htmlFor="ingredient-search-radio"
+          className="search-input"
+        >
           <input
+            className="radio-input"
             type="radio"
             data-testid="ingredient-search-radio"
             name="radioSearch"
@@ -60,8 +67,12 @@ export default class SearchBar extends Component {
           />
           Ingrediente
         </label>
-        <label htmlFor="name-search-radio">
+        <label
+          htmlFor="name-search-radio"
+          className="search-input"
+        >
           <input
+            className="radio-input"
             type="radio"
             data-testid="name-search-radio"
             name="radioSearch"
@@ -70,8 +81,13 @@ export default class SearchBar extends Component {
           />
           Nome
         </label>
-        <label htmlFor="first-letter-search-radio">
+        <label
+          htmlFor="first-letter-search-radio"
+          className="search-input"
+        >
           <input
+            id="oi"
+            className="radio-input"
             type="radio"
             data-testid="first-letter-search-radio"
             name="radioSearch"
@@ -84,6 +100,7 @@ export default class SearchBar extends Component {
           type="button"
           data-testid="exec-search-btn"
           onClick={ this.setSearch }
+          className="button-search"
         >
           Buscar
         </button>

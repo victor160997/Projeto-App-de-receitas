@@ -1,11 +1,30 @@
-@media screen and ( max-width : 360px ) and ( max-height : 640px ) {
+@media screen and ( min-width : 300px ) and ( max-width : 800px ) {
 
   .header-home-page {
     align-items : center;
-    background-color: rgb(255, 55, 55);
+    background-color: rgba(255, 123, 0);
     display: flex;
+    font-family: Lobster , cursive;
+    font-size: x-large;
+    height: 10vh;
     justify-content: space-between;
-    padding: 0 7px;
-    width: 100%;
+    width: 100vw;
+  }
+
+  .explore-button {
+    background-color: transparent;
+    border: none transparent 0;
+    color: transparent;
+  }
+
+  .icons {
+    margin: 0 10px;
+  }
+
+  .header-home-page h2 {
+    color: white;
+    text-shadow: 2px 0 5px black , -2px 0 5px black , 0 2px 5px black , 0
+      -2px 5px black , 1px 1px 5px black , -1px -1px 5px black , 1px -1px 5px black , -1px
+      1px 5px black;
   }
 }

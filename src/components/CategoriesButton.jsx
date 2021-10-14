@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getDrinksApi, getFoodApi } from '../services';
 import { filterDrink, filterFood } from '../redux/actions';
+import './categoryButton.css';
 
 class CategoriesButton extends Component {
   constructor() {
@@ -81,7 +82,7 @@ class CategoriesButton extends Component {
   render() {
     const { response } = this.state;
     return (
-      <div>
+      <div className="category-button-body">
         <button
           name="all"
           data-testid="All-category-filter"
@@ -91,7 +92,6 @@ class CategoriesButton extends Component {
           All
         </button>
         { response !== '' ? this.renderButton(response) : <span> Carregando </span> }
-        Categories
       </div>
     );
   }
@@ -114,30 +114,3 @@ CategoriesButton.propTypes = {
   filterFoodProps: PropTypes.func.isRequired,
   filterDrinkProps: PropTypes.func.isRequired,
 };
-
-/* async filterAllCategorys({ target }) {
-    const { name } = target;
-    const { filterSelect } = this.state;
-    const { type } = this.state;
-    const arrayCategories = await getFoodApi('list.php?c=list', '');
-    if (type === 'meals') {
-      const { filterFoodProps } = this.props;
-      if (filterSelect === name) {
-        this.setState({ filterSelect: '' });
-        const resp = await getFoodApi('search.php?s=', '');
-        return filterFoodProps(resp.meals);
-      }
-      this.setState({ filterSelect: name });
-      let arrayAllFood = [];
-      arrayCategories.meals.map(async (cat, i) => {
-        const four = 4;
-        if (i <= four) {
-          const resp = await getFoodApi(`filter.php?c=${cat.strCategory}`, '');
-          arrayAllFood = [...arrayAllFood, ...resp.meals];
-          console.log(arrayAllFood);
-        }
-        return undefined;
-      });
-      filterFoodProps(arrayAllFood);
-    }
-  } */

@@ -36,14 +36,16 @@ export default class Header extends Component {
               src={ profileIcon }
               alt="profileIcon"
               data-testid="profile-top-btn"
+              className="icons"
             />
           </Link>
-          <h2 data-testid="page-title">
+          <h2 data-testid="page-title" className="explore-header">
             { titlePage }
           </h2>
           <button
             type="button"
             onClick={ this.handleSearchBar }
+            className="explore-button icons"
           >
             <img
               src={ searchIcon }

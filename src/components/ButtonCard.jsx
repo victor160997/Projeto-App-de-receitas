@@ -8,6 +8,7 @@ function ButtonCard({ buttonText, onClick, testId, page, disabled }) {
       to={ page }
     >
       <button
+        className="action-button"
         type="button"
         data-testid={ testId }
         onClick={ onClick }

@@ -98,54 +98,56 @@ class Details extends Component {
     const { recipe, recomendation, sharedLink, favorite } = this.state;
     return (
       <div className="body-details">
-        <img
-          data-testid="recipe-photo"
-          src={ recipe.strMealThumb ? recipe.strMealThumb : recipe.strDrinkThumb }
-          alt={ recipe.strMeal ? recipe.strMeal : recipe.strDrink }
-          width="300vw"
-        />
-        <h1 data-testid="recipe-title">
+        <h1 data-testid="recipe-title" className="recipe-title">
           { recipe.strMeal ? recipe.strMeal : recipe.strDrink }
         </h1>
-        <div className="linkShare">
-          <input
-            type="url"
-            id="link-to-share"
-            value={ window.location.href }
-          />
-        </div>
-        <button
-          type="button"
-          onClick={ this.shareRecipe }
-        >
-          <img src={ shareIcon } alt="shareIcon" data-testid="share-btn" />
-        </button>
-        <button
-          type="button"
-          onClick={ () => {
-            if (confereFavorite(id) === true) {
-              removeFavorite(recipe);
-              return this.setState({ favorite: false });
-            }
-            adcFavorite(recipe);
-            return this.setState({ favorite: true });
-          } }
-        >
-          <img
-            src={ favorite ? blackHeartIcon : whiteHeartIcon }
-            alt=""
-            data-testid="favorite-btn"
-          />
-        </button>
-        { sharedLink ? <p>Link copiado!</p> : '' }
         { renderCategory(path, recipe) }
-        <div>
+        <img
+          data-testid="recipe-photo"
+          className="recipe-photo"
+          src={ recipe.strMealThumb ? recipe.strMealThumb : recipe.strDrinkThumb }
+          alt={ recipe.strMeal ? recipe.strMeal : recipe.strDrink }
+        />
+        <div className="buttons-detail">
+          <div className="linkShare">
+            <input
+              type="url"
+              id="link-to-share"
+              value={ window.location.href }
+            />
+          </div>
+          <button
+            type="button"
+            onClick={ this.shareRecipe }
+          >
+            <img src={ shareIcon } alt="shareIcon" data-testid="share-btn" />
+          </button>
+          <button
+            type="button"
+            onClick={ () => {
+              if (confereFavorite(id) === true) {
+                removeFavorite(recipe);
+                return this.setState({ favorite: false });
+              }
+              adcFavorite(recipe);
+              return this.setState({ favorite: true });
+            } }
+          >
+            <img
+              src={ favorite ? blackHeartIcon : whiteHeartIcon }
+              alt=""
+              data-testid="favorite-btn"
+            />
+          </button>
+        </div>
+        { sharedLink ? <p className="msg-share">Link copiado!</p> : '' }
+        <div className="ingredients-list">
           <h2>Igredients</h2>
           <ul>
             { renderIgredients(recipe) }
           </ul>
         </div>
-        <div>
+        <div className="instructions">
           <h2>Intructions</h2>
           <span data-testid="instructions">{recipe.strInstructions}</span>
         </div>
